@@ -11,8 +11,23 @@
     <label class="col-lg control-label">OPENID</label>
     <div class="col-sm-9 col-xs-12">
         <div class="form-control-static js-clip text-primary" data-url='{$member['openid']}'>{$member['openid']}</div>
+    </div>
 </div>
+
+<div class="form-group">
+    <label class="col-lg control-label">会员卡ID</label>
+    <div class="col-sm-9 col-xs-12">
+        <div class='form-control-static js-clip text-primary' data-url='{$member['membercardid']}'>{$member['membercardid']}</div>
+    </div>
 </div>
+
+<div class="form-group">
+    <label class="col-lg control-label">会员卡号</label>
+    <div class="col-sm-9 col-xs-12">
+        <div class='form-control-static js-clip text-primary' data-url='{$member['membercardcode']}'>{$member['membercardcode']}</div>
+    </div>
+</div>
+
 <div class="form-group">
     <label class="col-lg control-label">会员等级</label>
     <div class="col-sm-9 col-xs-12">
@@ -177,6 +192,21 @@
         </div>
     </div>
 </div>
+
+<div class="form-group">
+    <label class="col-lg control-label">微信会员卡状态</label>
+    <div class="col-sm-9 col-xs-12">
+        <div class='form-control-static'>
+            {if empty($member['membercardactive'])}
+            <label class='label label-default'>未激活</label>
+            {else}
+            <label class='label label-success'>已激活/label>
+            {/if}
+        </div>
+    </div>
+</div>
+
+
 <div class="form-group">
     <label class="col-lg control-label">黑名单</label>
     <div class="col-sm-9 col-xs-12">
