@@ -24,6 +24,9 @@ function cache_redis() {
 			if (!empty($config['auth'])) {
 				$auth = $redisobj->auth($config['auth']);
 			}
+			if (!empty($config['dbn'])) {
+				$auth = $redisobj->select($config['dbn']);
+			}
 		} catch (Exception $e) {
 			return error(-1,'redis连接失败，错误信息：'.$e->getMessage());
 		}
