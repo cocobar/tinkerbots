@@ -634,6 +634,7 @@ class WeixinAccount extends WeAccount {
 
 	
 	public function getAccessToken() {
+		/*
 		$cachekey = cache_system_key('accesstoken', array('uniacid' => $this->account['uniacid']));
 		$cache = cache_load($cachekey);
 		if (!empty($cache) && !empty($cache['token']) && $cache['expire'] > TIMESTAMP) {
@@ -667,6 +668,13 @@ class WeixinAccount extends WeAccount {
 		cache_write($cachekey, $record);
 
 		return $record['token'];
+		*/
+	
+		 //EDITED START 改成自开发的方式获取微信的access_token
+        require_once IA_ROOT . "/services/utils/TokenManage.php";
+        $token = TokenManage::getInstance()->getAccessToken();
+        return $token;
+        //EDITED END
 	}
 
 	public function getVailableAccessToken() {
