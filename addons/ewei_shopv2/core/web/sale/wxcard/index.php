@@ -59,6 +59,7 @@ class Index_EweiShopV2Page extends ComWebPage
 		$id = intval($_GPC['id']);
 		$type = intval($_GPC['type']);
 
+        $miniApps = $_W['config']['setting']['my_config']['mini_apps'];
 		if (!empty($id)) {
 			$item = pdo_fetch('SELECT * FROM ' . tablename('ewei_shop_wxcard') . ' WHERE id =:id and uniacid=:uniacid  limit 1', array(':uniacid' => $_W['uniacid'], ':id' => $id));
 		}
@@ -69,7 +70,7 @@ class Index_EweiShopV2Page extends ComWebPage
 			$data['catid'] = intval($_GPC['catid']);
 			$data['displayorder'] = intval($_GPC['displayorder']);
 			$data['color'] = $_GPC['color'];
-			$data['notice'] = '请前往商城购买商品时使用!';
+			$data['notice'] = '使用时向服务员出示此券';
 			$data['service_phone'] = '';
 			$data['description'] = $_GPC['description'];
 			$data['use_limit'] = intval($_GPC['use_limit']) <= 1 ? 1 : intval($_GPC['use_limit']);
@@ -79,11 +80,14 @@ class Index_EweiShopV2Page extends ComWebPage
 			$data['center_title'] = $_GPC['center_title'];
 			$data['center_sub_title'] = $_GPC['center_sub_title'];
 			$data['center_url'] = $_GPC['center_url'];
+            $data['center_app_name'] = $_GPC['center_app_name'];
 			$data['setcustom'] = '1';
-			$data['custom_url_name'] = $_GPC['custom_url_name'];
+			$data['custom_app_name'] = $_GPC['custom_app_name'];
+            $data['custom_url_name'] = $_GPC['custom_url_name'];
 			$data['custom_url_sub_title'] = $_GPC['custom_url_sub_title'];
 			$data['custom_url'] = $_GPC['custom_url'];
 			$data['setpromotion'] = '1';
+            $data['promotion_app_name'] = $_GPC['promotion_app_name'];
 			$data['promotion_url_name'] = $_GPC['promotion_url_name'];
 			$data['promotion_url_sub_title'] = $_GPC['promotion_url_sub_title'];
 			$data['promotion_url'] = $_GPC['promotion_url'];
@@ -320,7 +324,6 @@ class Index_EweiShopV2Page extends ComWebPage
 					$discount = (10 - $discount) * 10;
 					$data['discount'] = $discount;
 				}
-
 				$result = com('wxcard')->createCard($data);
 
 				if (is_wxerror($result)) {

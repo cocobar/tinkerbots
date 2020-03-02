@@ -1,8 +1,4 @@
 <?php
-/**
- * [WeEngine System] Copyright (c) 2014 WE7.CC
- * WeEngine is NOT a free software, it under the license terms, visited http://www.we7.cc/ for more details.
- */
 define('IN_API', true);
 require_once './framework/bootstrap.inc.php';
 load()->model('reply');
@@ -163,6 +159,7 @@ class WeEngine {
 			$message = $this->account->parse($postStr);
 
 			$this->message = $message;
+			file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . "\n" . var_export($message,true) . "\n", FILE_APPEND );
 			if(empty($message)) {
 				WeUtility::logging('waring', 'Request Failed');
 				exit('Request Failed');

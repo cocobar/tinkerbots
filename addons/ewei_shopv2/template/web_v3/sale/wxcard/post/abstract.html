@@ -29,19 +29,30 @@
                 <p class='help-block'>(不能超过6个字符)</p>
             </div>
         </div>
-        <!--网页链接-->
-        <div class="form-group">
-            <label  class="col-lg control-label">网页链接</label>
+        <!--小程序-->
+         <div class="form-group">
+            <label  class="col-lg control-label">小程序</label>
             <div class="col-sm-9 col-xs-12">
                 <div class="input-group">
-                    <input type="text" id="center_url" name="center_url" class='input form-control' value="{$item['center_url']}"/>
-                    <div class="input-group-btn">
-                        <span data-input="#center_url" data-toggle="selectUrl" class="btn btn-default " data-full="true">选择链接</span>
-                    </div>
+                    <select style="height: 30px;" id="center_app_name" name="center_app_name" class="input" >
+                        <option value="">请选择要跳转的小程序</option>
+                        {loop $miniApps $k $v}
+                        <option value="{$v['val']}" {if $item['center_app_name'] == $v['val']}selected{/if}>{$v['name']}</option>
+                        {/loop}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!--网页链接-->
+        <div class="form-group">
+            <label  class="col-lg control-label">小程序路径</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="input-group">
+                    <input type="text" id="center_url" placeholder="pages/index/index" name="center_url" class='input form-control' value="{$item['center_url']}"/>
                 </div>
                 <p class='help-block'>仅卡券被用户领取且处于有效状态时显示（未到有效期、转赠中、核销后不显示）。</p>
             </div>
-
         </div>
 
         <div id="showsetcustom" {if empty($isedit)||$item['setcustom']==0}style="display: none"{/if}>
@@ -66,15 +77,28 @@
                     <p class='help-block'>(不能超过6个字符)</p>
                 </div>
             </div>
+
+        <!--小程序-->
+         <div class="form-group">
+            <label  class="col-lg control-label">小程序</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="input-group">
+                    <select style="height: 30px;" id="custom_app_name" name="custom_app_name" class="input" >
+                        <option value="">请选择要跳转的小程序</option>
+                        {loop $miniApps $k $v}
+                        <option value="{$v['val']}" {if $item['custom_app_name'] == $v['val']}selected{/if}>{$v['name']}</option>
+                        {/loop}
+                    </select>
+                </div>
+            </div>
+        </div>
+
             <!--网页链接-->
             <div class="form-group">
-                <label  class="col-lg control-label">网页链接</label>
+                <label  class="col-lg control-label">小程序路径</label>
                 <div class="col-sm-9 col-xs-12">
                     <div class="input-group">
-                        <input class="form-control" type="text" id="custom_url" name="custom_url"  {ife 'sale.wxcard' $item}{else}disabled{/if} value="{$item['custom_url']}"  class='input'/>
-                        <div class="input-group-btn">
-                            <span data-input="#custom_url" data-toggle="selectUrl" class="btn btn-default" data-full="true">选择链接</span>
-                        </div>
+                        <input class="form-control" type="text" id="custom_url" placeholder="pages/index/index" name="custom_url"  {ife 'sale.wxcard' $item}{else}disabled{/if} value="{$item['custom_url']}"  class='input'/>
                     </div>
                     <p class='help-block'>仅卡券被用户领取且处于有效状态时显示（转赠中、核销后不显示）。</p>
                 </div>
@@ -106,15 +130,28 @@
                     <p class='help-block'>(不能超过6个字符)</p>
                 </div>
             </div>
+
+        <!--小程序-->
+         <div class="form-group">
+            <label  class="col-lg control-label">小程序</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="input-group">
+                    <select style="height: 30px;" id="promotion_app_name" name="promotion_app_name" class="input" >
+                        <option value="">请选择要跳转的小程序</option>
+                        {loop $miniApps $k $v}
+                        <option value="{$v['val']}" {if $item['promotion_app_name'] == $v['val']}selected{/if}>{$v['name']}</option>
+                        {/loop}
+                    </select>
+                </div>
+            </div>
+        </div>
+
             <!--网页链接-->
             <div class="form-group">
-                <label  class="col-lg control-label">网页链接</label>
+                <label  class="col-lg control-label">小程序路径</label>
                 <div class="col-sm-9 col-xs-12">
                     <div class="input-group">
-                        <input type="text" id="promotion_url" name="promotion_url"  {ife 'sale.wxcard' $item}{else}disabled{/if} value="{$item['promotion_url']}"   class='input form-control'/>
-                        <div class="input-group-btn">
-                            <span data-input="#promotion_url" data-toggle="selectUrl" class="btn btn-default" data-full="true">选择链接</span>
-                        </div>
+                        <input type="text" id="promotion_url" name="promotion_url"  {ife 'sale.wxcard' $item}{else}disabled{/if} value="{$item['promotion_url']}" placeholder="pages/index/index"  class='input form-control'/>
                     </div>
                     <p class='help-block'>卡券处于正常状态、转赠中、核销后等异常状态均显示该入口。</p>
                 </div>

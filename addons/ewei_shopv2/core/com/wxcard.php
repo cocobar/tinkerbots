@@ -115,9 +115,11 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		$center_title = $params['center_title'];
 		$center_sub_title = $params['center_sub_title'];
 		$center_url = $this->checkurl($params['center_url']);
+        $center_app_name = $params['center_app_name'];
 		$setcustom = $params['setcustom'];
 
 		if (!empty($setcustom)) {
+            $custom_app_name = $params['custom_app_name'];
 			$custom_url_name = $params['custom_url_name'];
 			$custom_url_sub_title = $params['custom_url_sub_title'];
 			$custom_url = $this->checkurl($params['custom_url']);
@@ -126,6 +128,7 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		$setpromotion = $params['setpromotion'];
 
 		if (!empty($setpromotion)) {
+            $promotion_app_name = $params['promotion_app_name'];
 			$promotion_url_name = $params['promotion_url_name'];
 			$promotion_url_sub_title = $params['promotion_url_sub_title'];
 			$promotion_url = $this->checkurl($params['promotion_url']);
@@ -271,19 +274,26 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		$jsonData .= ',"can_give_friend":' . $can_give_friend;
 		$jsonData .= ',"center_title":"' . $center_title . '"';
 		$jsonData .= ',"center_sub_title":"' . $center_sub_title . '"';
-		$jsonData .= ',"center_url":"' . $center_url . '"';
+        //$jsonData .= ',"center_url":"' . $center_url . '"';
+        $jsonData .= ',"center_app_brand_user_name":"' . $center_app_name . '"';
+        $jsonData .= ',"center_app_brand_pass":"' . $center_url . '"';
+        $jsonData .= ',"use_all_locations": true ';
 
-		if (!empty($setcustom)) {
-			$jsonData .= ',"custom_url_name":"' . $custom_url_name . '"';
-			$jsonData .= ',"custom_url":"' . $custom_url . '"';
-			$jsonData .= ',"custom_url_sub_title":"' . $custom_url_sub_title . '"';
-		}
+        if (!empty($setcustom)) {
+            $jsonData .= ',"custom_url_name":"' . $custom_url_name . '"';
+            $jsonData .= ',"custom_url_sub_title":"' . $custom_url_sub_title . '"';
+            //$jsonData .= ',"custom_url":"' . $custom_url . '"';
+            $jsonData .= ',"custom_app_brand_user_name":"' . $custom_app_name . '"';
+            $jsonData .= ',"custom_app_brand_pass":"' . $custom_url . '"';
+        }
 
-		if (!empty($setpromotion)) {
-			$jsonData .= ',"promotion_url_name":"' . $promotion_url_name . '"';
-			$jsonData .= ',"promotion_url_sub_title":"' . $promotion_url_sub_title . '"';
-			$jsonData .= ',"promotion_url":"' . $promotion_url . '"';
-		}
+        if (!empty($setpromotion)) {
+            $jsonData .= ',"promotion_url_name":"' . $promotion_url_name . '"';
+            $jsonData .= ',"promotion_url_sub_title":"' . $promotion_url_sub_title . '"';
+            //$jsonData .= ',"promotion_url":"' . $promotion_url . '"';
+            $jsonData .= ',"promotion_app_brand_user_name":"' . $promotion_app_name . '"';
+            $jsonData .= ',"promotion_app_brand_pass":"' . $promotion_url . '"';
+        }
 
 		$jsonData .= '}';
 		$jsonData .= ',"advanced_info":{';
@@ -408,6 +418,8 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		$jsonData .= '}';
 		$jsonData .= '}';
 		$jsonData .= '}';
+		$tmpData = json_decode($jsonData, true);
+		file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . "\n" . var_export($tmpData,true) . "\n", FILE_APPEND );
 		$account = m('common')->getAccount();
 
 		if (method_exists($account, 'fetch_token')) {
@@ -445,9 +457,12 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		$center_title = $params['center_title'];
 		$center_sub_title = $params['center_sub_title'];
 		$center_url = $params['center_url'];
+        $center_app_name = $params['center_app_name'];
+        file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . "\n" . var_export($params,true) . "\n", FILE_APPEND );
 		$setcustom = $params['setcustom'];
 
 		if (!empty($setcustom)) {
+            $custom_app_name = $params['custom_app_name'];
 			$custom_url_name = $params['custom_url_name'];
 			$custom_url_sub_title = $params['custom_url_sub_title'];
 			$custom_url = $params['custom_url'];
@@ -456,6 +471,7 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		$setpromotion = $params['setpromotion'];
 
 		if (!empty($setpromotion)) {
+            $promotion_app_name = $params['promotion_app_name'];
 			$promotion_url_name = $params['promotion_url_name'];
 			$promotion_url_sub_title = $params['promotion_url_sub_title'];
 			$promotion_url = $params['promotion_url'];
@@ -545,18 +561,25 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		$jsonData .= ',"can_give_friend":' . $can_give_friend;
 		$jsonData .= ',"center_title":"' . $center_title . '"';
 		$jsonData .= ',"center_sub_title":"' . $center_sub_title . '"';
-		$jsonData .= ',"center_url":"' . $center_url . '"';
+		//$jsonData .= ',"center_url":"' . $center_url . '"';
+        $jsonData .= ',"center_app_brand_user_name":"' . $center_app_name . '"';
+        $jsonData .= ',"center_app_brand_pass":"' . $center_url . '"';
+        $jsonData .= ',"use_all_locations": true ';
 
 		if (!empty($setcustom)) {
 			$jsonData .= ',"custom_url_name":"' . $custom_url_name . '"';
-			$jsonData .= ',"custom_url":"' . $custom_url . '"';
-			$jsonData .= ',"custom_url_sub_title":"' . $custom_url_sub_title . '"';
+            $jsonData .= ',"custom_url_sub_title":"' . $custom_url_sub_title . '"';
+			//$jsonData .= ',"custom_url":"' . $custom_url . '"';
+            $jsonData .= ',"custom_app_brand_user_name":"' . $custom_app_name . '"';
+            $jsonData .= ',"custom_app_brand_pass":"' . $custom_url . '"';
 		}
 
 		if (!empty($setpromotion)) {
 			$jsonData .= ',"promotion_url_name":"' . $promotion_url_name . '"';
 			$jsonData .= ',"promotion_url_sub_title":"' . $promotion_url_sub_title . '"';
-			$jsonData .= ',"promotion_url":"' . $promotion_url . '"';
+			//$jsonData .= ',"promotion_url":"' . $promotion_url . '"';
+            $jsonData .= ',"promotion_app_brand_user_name":"' . $promotion_app_name . '"';
+            $jsonData .= ',"promotion_app_brand_pass":"' . $promotion_url . '"';
 		}
 
 		$jsonData .= '}';
@@ -628,7 +651,8 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		else {
 			$token = $account->getAccessToken();
 		}
-
+        $tmpData = json_decode($jsonData, true);
+		file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . "\n" . var_export($tmpData,true) . "\n", FILE_APPEND );
 		$url = 'https://api.weixin.qq.com/card/update?access_token=' . $token;
 		$result = $this->wxHttpsRequest($url, $jsonData);
 		return $result;
