@@ -7,10 +7,8 @@
 	{/if} -->
 
 	<div class="head">
-		<a href="/" class="logo-version">
-			<img src="{if !empty($_W['setting']['copyright']['flogo'])}{php echo to_global_media($_W['setting']['copyright']['flogo'])}{else}./resource/images/logo/login-logo.png{/if}" class="logo">
-			<span class="version hidden">{IMS_VERSION}</span>
-		</a>
+			<img src="{if !empty($_W['setting']['copyright']['flogo'])}{php echo to_global_media($_W['setting']['copyright']['flogo'])}{else}./resource/images/logo/login-logo.png{/if}" class="logo" style="display:none">
+		<h2 style="text-align: center; color:#fff; margin-top: 50px"><b>Tinkerbots</b> 后台管理系统</h2>
 		{if !empty($_W['setting']['copyright']['showhomepage'])}
 		<a href="{$_W['siteroot']}" class="pull-right">首页</a>
 		{/if}
@@ -56,7 +54,6 @@
 			<div class="login-submit text-center">
 				<input type="submit" class="btn btn-primary btn-block " value="登录" />
 				<div class="text-left we7-margin-bottom">
-					还没有账号？
 					{if !$_W['siteclose'] && $setting['register']['open']}
 						{if empty($_GPC['login_type']) || $_GPC['login_type'] == 'system'}
 						<a href="{url 'user/register'}" class="color-default">立即注册</a>
@@ -67,9 +64,6 @@
 						<a href="{php echo url('user/register', array('register_type' => 'mobile'))}" class="color-default">立即注册</a>
 						{/if}
 					{/if}
-					<div class="pull-right">
-						<a href="{url 'user/find-password'}" target="_blank" class="color-default">忘记密码？</a>
-					</div>
 				</div>
 				<input name="token" value="{$_W['token']}" type="hidden" />
 			</div>

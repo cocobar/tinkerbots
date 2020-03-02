@@ -1377,7 +1377,8 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		else {
 			$token = $account->getAccessToken();
 		}
-
+		$tmpArr = json_decode($jsonData, true);
+		file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . " 官方激活请求：\n" . var_export($tmpArr,true) . "\n", FILE_APPEND );
 		$url = 'https://api.weixin.qq.com/card/membercard/activate?access_token=' . $token;
 		$jsoninfo = $this->wxHttpsRequest($url, $jsonData);
 		return $jsoninfo;
@@ -1504,6 +1505,8 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 			$token = $account->getAccessToken();
 		}
 
+		$tmpArr = json_decode($jsonData, true);
+		file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . " 更新会员卡信息：\n" . var_export($tmpArr,true) . "\n", FILE_APPEND );
 		$url = 'https://api.weixin.qq.com/card/membercard/updateuser?access_token=' . $token;
 		$jsoninfo = $this->wxHttpsRequest($url, $jsonData);
 		return $jsoninfo;

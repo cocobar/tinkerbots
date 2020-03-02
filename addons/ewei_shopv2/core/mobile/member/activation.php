@@ -163,7 +163,7 @@ class Activation_EweiShopV2Page extends MobileLoginPage
 				$arr['idnumber'] = trim($_GPC['idnumber']);
 			}
 		}
-
+file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . " 激活：\n" . var_export($_REQUEST,true) . "\n", FILE_APPEND );
 		pdo_update('ewei_shop_member', $arr, array('openid' => $_W['openid'], 'uniacid' => $_W['uniacid']));
 		$result = com_run('wxcard::ActivateMembercardbyopenid', $_W['openid']);
 		if (empty($result) || is_wxerror($result)) {
