@@ -868,7 +868,7 @@
 <div id='comments-container'></div>
 
 <!--店铺信息-->
-<div class="fui-cell-group fui-shop-group">
+<div style="display: none" class="fui-cell-group fui-shop-group">
     <a class='fui-list' href="{$shopdetail['btnurl2']}">
         <div class='fui-list-media'>
             <img data-lazy="{php echo tomedia($shopdetail['logo'])}" />
@@ -1027,14 +1027,22 @@
         {/if}
         <a  class="nav-item btn offic-qrcode" style="background: #fe9402;padding:0 1.9rem;">卖</a>
     {else}
-        <a  class="nav-item favorite-item {if $isFavorite}active{/if}" data-isfavorite="{php echo intval($isFavorite)}">
+        <a style="display: none" class="nav-item favorite-item {if $isFavorite}active{/if}" data-isfavorite="{php echo intval($isFavorite)}">
             <span class="icon {if $isFavorite}icon-likefill{else}icon-like{/if}"></span>
             <span class="label" >关注</span>
         </a>
-        <a class="nav-item external" href="{php echo !empty($goods['merchid']) ? mobileUrl('merch',array('merchid'=>$goods['merchid'])) : mobileUrl('');}">
+
+        <a style="display: none" class="nav-item external" href="{php echo !empty($goods['merchid']) ? mobileUrl('merch',array('merchid'=>$goods['merchid'])) : mobileUrl('');}">
             <span class="icon icon-shop"></span>
             <span class="label" >店铺</span>
         </a>
+
+
+    <a  class="nav-item external" href="{php echo mobileUrl('goods')}">
+        <span class="icon icon-list"></span>
+        <span class="label" >商品</span>
+    </a>
+
         <a class="nav-item cart-item" href="{php echo mobileUrl('member/cart')}" data-nocache="true" he="" id="menucart">
             <span class='badge {if $cartCount<=0}out{else}in{/if}'>{$cartCount}</span>
             <span class="icon icon-cart"></span>
