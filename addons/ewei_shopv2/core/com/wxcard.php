@@ -1384,7 +1384,7 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		return $jsoninfo;
 	}
 
-	public function updateMemberCardByOpenid($openid)
+	public function updateMemberCardByOpenid($openid, $type = 1, $desc = "")
 	{
 		global $_W;
 		$card = m('common')->getSysset('membercard');
@@ -1409,6 +1409,12 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		$params['code'] = $member['membercardcode'];
 		$params['card_id'] = $member['membercardid'];
 		$params['bonus'] = $credit1;
+		if (!empty($desc) && $type == 'bonus') {
+            $params['record_bonus'] = $desc;
+		}
+		if (!empty($desc) && $type == 'balance') {
+            $params['record_balance'] = $desc;
+        }
 
 		if (!empty($card['card_supply_balance'])) {
 			$params['balance'] = $credit2 * 100;

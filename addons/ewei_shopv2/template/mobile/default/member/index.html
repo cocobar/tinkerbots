@@ -96,7 +96,8 @@
 			<div class="fui-cell-text">我的订单</div>
 			<div class="fui-cell-remark" style="font-size: 0.65rem;">查看全部订单</div>
 		</a>
-		{php $check_cycelbuy=p('cycelbuy')}
+		{php $check_cycelbuy=false}
+        <!--p('cycelbuy')-->
 		<div class="fui-icon-group selecter {if $check_cycelbuy}col-5{else}col-4{/if}">
 			<a class="fui-icon-col external" href="{php echo mobileUrl('order',array('status'=>0))}">
 				{if $statics['order_0']>0}<div class="badge">{$statics['order_0']}</div>{/if}

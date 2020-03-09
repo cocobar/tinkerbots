@@ -1,5 +1,4 @@
 <?php
-//微智分销解密修复、qq188872170、淘宝店铺：https://shop151264326.taobao.com/
 if (!defined('IN_IA')) {
 	exit('Access Denied');
 }

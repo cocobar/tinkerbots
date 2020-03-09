@@ -39,7 +39,8 @@ class Recharge_EweiShopV2Page extends WebPage
 				}
 			}
 
-			m('member')->setCredit($profile['openid'], $type, $num, array($_W['uid'], '后台会员充值' . $typestr . ' ' . $remark));
+			$tmpRemark = empty($remark) ? '后台充值' . $typestr : $remark;
+			m('member')->setCredit($profile['openid'], $type, $num, array($_W['uid'], $tmpRemark));
 			$changetype = 0;
 			$changenum = 0;
 

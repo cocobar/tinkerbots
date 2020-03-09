@@ -313,7 +313,8 @@ class Member_EweiShopV2Model
 			p('task')->checkTaskProgress($credits, 'recharge_count', 0, $openid);
 		}
 
-		com_run('wxcard::updateMemberCardByOpenid', $openid);
+        $handleType = $credittype == "credit1" ? 'bonus' : 'balance';
+		com_run('wxcard::updateMemberCardByOpenid', $openid, $handleType, $log[1]);
 	}
 
 	public function getCredit($openid = '', $credittype = 'credit1')
