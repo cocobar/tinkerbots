@@ -13,7 +13,7 @@
     {if !$other['is_system']}{php continue;}{/if}
     {if $other['name'] == 'workorder' && (!permission_check_account_user('see_workorder') || !$_W['iscontroller'])}{php continue;}{/if}
     {if $other['name'] == 'store' && $_W['iscontroller']}{php continue;}{/if}
-    <li class="js-header-user" data-toggle="tooltip" data-placement="bottom" title="{$other['title']}">
+    <li style="display: none" class="js-header-user" data-toggle="tooltip" data-placement="bottom" title="{$other['title']}">
         <a href="{$other['url']}"><i class="{$other['icon']}"></i></a>
     </li>
     {/loop}

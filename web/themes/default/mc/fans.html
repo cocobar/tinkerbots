@@ -104,12 +104,15 @@
 				<a href="javascript:;" class="color-default fans-group-del we7-margin-left-sm" data-show='popover'>删除</a>
 				{/if}
 				<div class="pull-right we7-form">
+					<div style="display: none">
 						<input id='credit1' type="radio" name='1' {if $type == ''}checked='checked'{/if} onclick="changetype('')" />
 						<label for="credit1">全部</label>
 						<input id='credit3' type="radio" name='1' {if $type == 'bind'}checked='checked'{/if} onclick="changetype('bind')"/>
 						<label for="credit3">
 						会员
 						</label>
+					</div>
+
 					<script>
 						changetype = function(type) {
 							if (type == '') {
@@ -194,7 +197,7 @@
 						<td>
 							<p><a href="{php echo url('mc/chats', array('openid' => $fan['openid']))}" target="_blank" class="nick-name" data-fanid="{$fan['fanid']}" data-group="{$fan['groupid']}">{$fan['nickname']}</a></p>
 							{if !empty($fan['uid'])}
-							<p class="remark-name"><a href="{php echo url('mc/member/base_information', array('uid' => $fan['uid']));}">
+							<p class="remark-name" style="display: none"><a href="{php echo url('mc/member/base_information', array('uid' => $fan['uid']));}">
 								{if !empty($fan['member']['realname'])}
 									{$fan['member']['realname']}
 								{else}
@@ -220,7 +223,7 @@
 						</td>
 						<td class="text-right">
 							<div class="send-message">
-								{if empty($fan['uid'])}
+								{if empty($fan['uid']) && false}
 								<a href="javascript:;" class="color-default" data-toggle="modal" data-target="#register_member" ng-click="registerMember('{$fan['openid']}')">注册为会员</a>
 								{/if}
 								<a  href="{php echo url('mc/chats', array('openid' => $fan['openid']))}" target="_blank" class="color-default">
