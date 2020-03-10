@@ -44,6 +44,27 @@ if ('ext' == $do && 'store' != $_GPC['m'] && !$_GPC['system_welcome']) {
 }
 
 if ('platform' == $do) {
+    $today_stat = pdo_get('stat_fans', array('date' => date('Ymd'), 'uniacid' => $_W['uniacid']));
+    $yesterday_stat = pdo_get('stat_fans', array('date' => date('Ymd', strtotime('-1 days')), 'uniacid' => $_W['uniacid']));
+    if (empty($today_stat)) {
+        $today_stat = [
+            'new' => '0',
+            'cancel' => '0',
+            'cumulate' => '0',
+        ];
+    }
+    if (empty($yesterday_stat)) {
+        $yesterday_stat = [
+            'new' => '0',
+            'cancel' => '0',
+            'cumulate' => '0',
+        ];
+    }
+    template('statistics/fans-display');
+}
+
+/*
+if ('platform' == $do) {
 	if (empty($_W['account'])) {
 		itoast('账号信息有误!', url('account/manage'), 'info');
 	}
@@ -53,6 +74,7 @@ if ('platform' == $do) {
 		$notices = welcome_notices_get();
 	template('home/welcome');
 }
+*/
 
 if ('system' == $do) {
 	if (!user_is_founder($_W['uid'], true)) {

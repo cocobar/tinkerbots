@@ -58,7 +58,7 @@
 			</div>
 			</form>
 			<a href="{url 'platform/reply/post' array('m' => $m)}" class="btn btn-primary">添加{if $m == 'userapi'}自定义接口{else}关键字{/if}回复</a>
-			{if in_array($m, $sysmods) && $m != 'userapi'}<a href="{url 'platform/reply/post' array('m' => 'apply')}" class="btn btn-default  we7-margin-left">添加应用关键字</a>{/if}
+			{if in_array($m, $sysmods) && $m != 'userapi'}<a href="{url 'platform/reply/post' array('m' => 'apply')}" class="btn btn-default  we7-margin-left" style="display: none">添加应用关键字</a>{/if}
 		</div>
 		
 		<div class="clearfix"></div>
