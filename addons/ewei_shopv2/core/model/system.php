@@ -1324,7 +1324,6 @@ class System_EweiShopV2Model
 			'menu_items' => array(),
 			'logout'     => ''
 		);
-
 		if ($this->merch) {
 			$return_arr['menu_title'] = $_W['merch_username'] . '//' . $_W['uniaccount']['username'];
 			$return_arr['menu_items'][] = array('text' => '修改密码', 'href' => merchUrl('updatepassword'));
@@ -1335,13 +1334,12 @@ class System_EweiShopV2Model
 			if ($_W['role'] == 'founder' && $routes[0] != 'system') {
 				$return_arr['system'] = 1;
 			}
-
 			if ($routes[0] == 'system') {
 				$return_arr['menu_items'][] = array('text' => '返回商城', 'href' => webUrl(), 'icow' => 'icow-qiehuan');
 			}
 			else {
-				$return_arr['menu_items'][] = array('text' => '切换公众号', 'href' => webUrl('sysset/account'), 'icow' => 'icow-qiehuan');
 				if ($_W['role'] == 'manager' || $_W['role'] == 'founder') {
+                    $return_arr['menu_items'][] = array('text' => '切换公众号', 'href' => webUrl('sysset/account'), 'icow' => 'icow-qiehuan');
 					$return_arr['menu_items'][] = array('text' => '编辑公众号', 'href' => './index.php?c=account&a=post&uniacid=' . $_W['uniacid'] . '&acid=' . $_W['acid'], 'blank' => 'true', 'icow' => 'icow-bianji5');
 					$return_arr['menu_items'][] = array('text' => '支付方式', 'href' => webUrl('sysset/payset'), 'icow' => 'icow-zhifu');
 				}
@@ -1352,7 +1350,7 @@ class System_EweiShopV2Model
 					$return_arr['menu_items'][] = array('text' => '权限管理', 'href' => webUrl('perm'), 'icow' => 'icow-quanxian');
 				}
 
-				if (p('grant')) {
+				if (p('grant') && $_W['role'] == 'founder') {
 					$return_arr['menu_items'][] = 'line';
 					$return_arr['menu_items'][] = array('text' => '应用授权', 'href' => webUrl('plugingrant'), 'icow' => 'icow-shouquan');
 				}

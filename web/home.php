@@ -6,6 +6,9 @@
 define('IN_SYS', true);
 require '../framework/bootstrap.inc.php';
 require IA_ROOT . '/web/common/bootstrap.sys.inc.php';
+if (empty($_W['isfounder'])) {
+    header("Location:{$_W['siteroot']}web/index.php");
+}
 
 if (empty($_W['isfounder']) && !empty($_W['user']) && ($_W['user']['status'] == USER_STATUS_CHECK || $_W['user']['status'] == USER_STATUS_BAN)) {
 	isetcookie('__session', '', -10000);

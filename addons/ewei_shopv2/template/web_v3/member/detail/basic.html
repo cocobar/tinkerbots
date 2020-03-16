@@ -197,7 +197,9 @@
     <label class="col-lg control-label">微信会员卡状态</label>
     <div class="col-sm-9 col-xs-12">
         <div class='form-control-static'>
-            {if empty($member['membercardactive'])}
+            {if empty($member['membercardid'])}
+            <label class='label label-default'>未领取</label>
+            {elseif empty($member['membercardactive'])}
             <label class='label label-default'>未激活</label>
             {else}
             <label class='label label-success'>已激活</label>

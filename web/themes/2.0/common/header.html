@@ -73,12 +73,12 @@
 			</div>
 			{if !$_W['iscontroller']}
 			<div class="header-info-common pull-left">
-				<a class="header-info-common__logo" href="{php echo $_W['siteroot'] . 'web/home.php'}">
+				<a class="header-info-common__logo" href="{$_W['siteroot']}web/{if $_W['isfounder']}home.php{else}index.php{/if}">
 					<img src="{if !empty($_W['setting']['copyright']['blogo'])}{php echo to_global_media($_W['setting']['copyright']['blogo'])}{else}./resource/images/logo/logo.png{/if}" class="logo" style="max-height: 40px;max-width: 100px;">
 				</a>
 				{if $_W['breadcrumb']}
 				<div class="header-info-common__breadcrumb">
-					<a href="{$_W['siteroot']}web/home.php" class="home">
+					<a href="{$_W['siteroot']}web/{if $_W['isfounder']}home.php{else}index.php{/if}" class="home">
 						<i class="wi wi-home"></i>
 					</a>
 					<span class="separator"> <i class="wi wi-angle-right"></i> </span>

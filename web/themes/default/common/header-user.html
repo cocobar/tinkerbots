@@ -49,7 +49,7 @@
     </li>
     <!-- end用户信息 -->
 
-    <li class="dropdown-star {if !in_array(FRAME, array('account', 'wxapp')) || 'store' == $_GPC['m']}hidden{/if}">
+    <li class="dropdown-star {if !in_array(FRAME, array('account', 'wxapp')) || 'store' == $_GPC['m'] || !$_W['isfounder']}hidden{/if}">
         <a href="javascript:;" class="star-info">
             <img src="{if defined('IN_MODULE')}{$_W['current_module']['logo']}{else}{$_W['account']['logo']}{/if}" class="account-img" alt="">
             <span class="name text-over">{if defined('IN_MODULE')}{$_W['current_module']['title']}{else}{$_W['account']['name']}{/if}</span>

@@ -118,7 +118,9 @@
                     <thead>
                     <tr>
                         <th style="width:25px;"></th>
-                        <th style="width: 250px;">粉丝</th>
+                        <th style="">粉丝</th>
+                        <th style="">微信会员卡</th>
+                        <th style="">手机号</th>
                         <th style="">等级/标签组</th>
                         <th style="">注册时间</th>
                         <th style="">积分/余额</th>
@@ -180,7 +182,18 @@
 
                                 </div>
                             </td>
-
+                            <td>
+                                {$row['mobile']}
+                            </td>
+                            <td>
+                                {if empty($row['membercardid'])}
+                                <label class='label label-default'>未领取</label>
+                                {elseif empty($row['membercardactive'])}
+                                <label class='label label-default'>未激活</label>
+                                {else}
+                                <label class='label label-success'>已激活</label>
+                                {/if}
+                            </td>
                             <td>
                                 {if empty($row['levelname'])}普通会员{else}{$row['levelname']}{/if}{if !empty($row['groupname'])}/{$row['groupname']}{/if}
                             </td>
