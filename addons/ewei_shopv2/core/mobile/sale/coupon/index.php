@@ -519,7 +519,6 @@ class Index_EweiShopV2Page extends MobileLoginPage
 
 			++$i;
 		}
-
 		show_json(1, array('list' => $cardslist, 'pagesize' => $psize, 'total' => count($cards)));
 	}
 

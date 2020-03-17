@@ -9,7 +9,7 @@
 		<div class="fui-header-right">&nbsp;</div>
     </div>
 	<div class='fui-content'>
-		<div class='fui-tab fui-tab-danger' id='cateTab'>
+		<div class='fui-tab fui-tab-danger' id='cateTab' style="display: none;">
 			<a class="active" data-cate=''>未使用</a>
 			<a data-cate='used'>已使用</a>
 			<a data-cate='past'>已过期</a>
@@ -34,7 +34,8 @@
 	<script id='tpl_list_coupon_my' type='text/html'>
 		<%each list as coupon%>
 		<%if  coupon.check == 0%>
-			<a href="{php echo mobileUrl('sale/coupon/my/detail')}&id=<%coupon.id%>" class="coupon-item  <%coupon.color%>">
+			<!--<a href="{php echo mobileUrl('sale/coupon/my/detail')}&id=<%coupon.id%>" class="coupon-item  <%coupon.color%>">-->
+				<a href="{php echo mobileUrl('goods')}" class="coupon-item  <%coupon.color%>">
 		<% else%>
 			<a href="javascript:void(0)" class="coupon-item  <%if  coupon.check == 1%><%coupon.color%> <%else%>gray<%/if%>">
 		<%/if%>
@@ -49,7 +50,7 @@
 			<div class="coupon-right">
 				<div class="title"><%coupon.couponname%></div>
 				<div class="subtitle"><%=coupon.title5%></div>
-				<div class="subtitle"><%if coupon.merchname!=''%>限购[<%coupon.merchname%>]店铺商品<%/if%></div>
+				<div class="subtitle"><%if coupon.merchname!='' && false %>限购[<%coupon.merchname%>]店铺商品<%/if%></div>
 				<div class="usetime">
 					<div class="text"><%if coupon.timestr==''%>
 						永久有效

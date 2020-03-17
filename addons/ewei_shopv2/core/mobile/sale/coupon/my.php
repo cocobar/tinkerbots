@@ -174,21 +174,35 @@ class My_EweiShopV2Page extends MobileLoginPage
 	{
 		global $_W;
 		global $_GPC;
-		$openid = $_W['openid'];
-		$cate = trim($_GPC['cate']);
-		$check = 0;
 
-		if (!empty($cate)) {
-			if ($cate == 'used') {
-				$used = 1;
-				$check = 1;
-			}
-			else {
-				$past = 1;
-				$check = 2;
-			}
-		}
-
+        $openid = $_W['openid'];
+        $cate = trim($_GPC['cate']);
+        $check = 0;
+        if (!empty($cate)) {
+            if ($cate == 'used') {
+                $used = 1;
+                $check = 1;
+            }
+            else {
+                $past = 1;
+                $check = 2;
+            }
+        }
+        $wxcard = $this->getwxcard();
+        $userWxCards = com_run('wxcard::getAvailableWxcards', 0, 0, $_GPC['merchs']);
+        $userWxCardData = [];
+        if (!empty($userWxCards) && !empty($wxcard)) {
+            foreach ($userWxCards as $val) {
+                if (empty($wxcard[$val['card_id']])) {
+                    continue;
+                }
+                $tmpArr = array_merge($wxcard[$val['card_id']], $val);
+                $tmpArr['check'] = $check;
+                $userWxCardData[] = $tmpArr;
+            }
+        }
+        show_json(1, array('list' => $userWxCardData, 'pagesize' => 5, 'total' => count($userWxCardData)));
+        die;
 		$pindex = max(1, intval($_GPC['page']));
 		$psize = 10;
 		$time = time();
@@ -320,7 +334,6 @@ class My_EweiShopV2Page extends MobileLoginPage
 			$row['title3'] = $title3;
 			$row['title5'] = $title5;
 		}
-
 		unset($row);
 		show_json(1, array('list' => $coupons, 'pagesize' => $psize, 'total' => $total));
 	}
@@ -786,6 +799,230 @@ class My_EweiShopV2Page extends MobileLoginPage
 		$goods = m('goods')->getListbyCoupon($args);
 		show_json(1, array('list' => $goods['list'], 'total' => $goods['total'], 'pagesize' => $args['pagesize']));
 	}
+
+
+    /************** my ****************/
+    public function getwxcard()
+    {
+        global $_W;
+        $merchdata = $this->merchData();
+        extract($merchdata);
+        $time = time();
+        $param = array();
+        $param[':uniacid'] = $_W['uniacid'];
+        $sql = 'select id,card_id,0 as coupontype,card_type, least_cost,reduce_cost,discount,datetype,begin_timestamp,end_timestamp,fixed_term,fixed_begin_term, merchid,title as couponname,logo_url as thumb ,total_quantity as t,quantity as `last`,tagtitle,settitlecolor,titlecolor,islimitlevel, limitmemberlevels,limitagentlevels,limitpartnerlevels,limitaagentlevels  from ' . tablename('ewei_shop_wxcard');
+        $sql .= ' where uniacid=:uniacid';
+
+        if ($is_openmerch == 0) {
+            $sql .= ' and merchid=0';
+        }
+        else {
+            if (!empty($_GPC['merchid'])) {
+                $sql .= ' and merchid=:merchid';
+                $param[':merchid'] = intval($_GPC['merchid']);
+            }
+        }
+
+        $plugin_com = p('commission');
+
+        if ($plugin_com) {
+            $plugin_com_set = $plugin_com->getSet();
+
+            if (empty($plugin_com_set['level'])) {
+                $sql .= ' and ( limitagentlevels = "" or  limitagentlevels is null )';
+            }
+        }
+        else {
+            $sql .= ' and ( limitagentlevels = "" or  limitagentlevels is null )';
+        }
+
+        $plugin_globonus = p('globonus');
+
+        if ($plugin_globonus) {
+            $plugin_globonus_set = $plugin_globonus->getSet();
+
+            if (empty($plugin_globonus_set['open'])) {
+                $sql .= ' and ( limitpartnerlevels = ""  or  limitpartnerlevels is null )';
+            }
+        }
+        else {
+            $sql .= ' and ( limitpartnerlevels = ""  or  limitpartnerlevels is null )';
+        }
+
+        $plugin_abonus = p('abonus');
+
+        if ($plugin_abonus) {
+            $plugin_abonus_set = $plugin_abonus->getSet();
+
+            if (empty($plugin_abonus_set['open'])) {
+                $sql .= ' and ( limitaagentlevels = "" or  limitaagentlevels is null )';
+            }
+        }
+        else {
+            $sql .= ' and ( limitaagentlevels = "" or  limitaagentlevels is null )';
+        }
+
+        $sql .= ' and gettype=1 and quantity>0 and ( datetype = \'DATE_TYPE_FIX_TERM\' or  (datetype=\'DATE_TYPE_FIX_TIME_RANGE\' and end_timestamp>unix_timestamp()))';
+
+        if (!empty($cateid)) {
+            $sql .= ' and catid=' . $cateid;
+        }
+
+        $sql .= ' order by displayorder desc, id desc ';
+        $wxcard = pdo_fetchall($sql, $param);
+
+        if (empty($wxcard)) {
+            $wxcard = array();
+        }
+
+        $hascommission = false;
+        $plugin_com = p('commission');
+
+        if ($plugin_com) {
+            $plugin_com_set = $plugin_com->getSet();
+            $hascommission = !empty($plugin_com_set['level']);
+        }
+
+        $hasglobonus = false;
+        $plugin_globonus = p('globonus');
+
+        if ($plugin_globonus) {
+            $plugin_globonus_set = $plugin_globonus->getSet();
+            $hasglobonus = !empty($plugin_globonus_set['open']);
+        }
+
+        $hasabonus = false;
+        $plugin_abonus = p('abonus');
+
+        if ($plugin_abonus) {
+            $plugin_abonus_set = $plugin_abonus->getSet();
+            $hasabonus = !empty($plugin_abonus_set['open']);
+        }
+
+        foreach ($wxcard as $i => &$row) {
+            $limitmemberlevels = explode(',', $row['limitmemberlevels']);
+            $limitagentlevels = explode(',', $row['limitagentlevels']);
+            $limitpartnerlevels = explode(',', $row['limitpartnerlevels']);
+            $limitaagentlevels = explode(',', $row['limitaagentlevels']);
+            $pass = false;
+
+            if ($row['islimitlevel'] == 1) {
+                $openid = trim($_W['openid']);
+                $member = m('member')->getMember($openid);
+                if (!empty($row['limitmemberlevels']) || $row['limitmemberlevels'] == '0') {
+                    $shop = $_W['shopset']['shop'];
+
+                    if (in_array($member['level'], $limitmemberlevels)) {
+                        $pass = true;
+                    }
+                }
+
+                if ((!empty($row['limitagentlevels']) || $row['limitagentlevels'] == '0') && $hascommission) {
+                    if ($member['isagent'] == '1' && $member['status'] == '1') {
+                        if (in_array($member['agentlevel'], $limitagentlevels)) {
+                            $pass = true;
+                        }
+                    }
+                }
+
+                if ((!empty($row['limitpartnerlevels']) || $row['limitpartnerlevels'] == '0') && $hasglobonus) {
+                    if ($member['ispartner'] == '1' && $member['partnerstatus'] == '1') {
+                        if (in_array($member['partnerlevel'], $limitpartnerlevels)) {
+                            $pass = true;
+                        }
+                    }
+                }
+
+                if ((!empty($row['limitaagentlevels']) || $row['limitaagentlevels'] == '0') && $hasabonus) {
+                    if ($member['isaagent'] == '1' && $member['aagentstatus'] == '1') {
+                        if (in_array($member['aagentlevel'], $limitaagentlevels)) {
+                            $pass = true;
+                        }
+                    }
+                }
+            }
+            else {
+                $pass = true;
+            }
+
+            $row['pass'] = $pass;
+            $row['contype'] = 1;
+            $totle = $row['t'];
+            $last = $row['last'];
+            $row['lastratio'] = intval($last / $totle * 100);
+            $title2 = '';
+            $title3 = '';
+            $title4 = '';
+            $tagtitle = '';
+
+            if ($row['coupontype'] == '0') {
+                if (0 < $row['least_cost']) {
+                    $title2 = '满' . (double) $row['least_cost'] / 100 . '元可用';
+                }
+                else {
+                    $title2 = '无金额门槛';
+                }
+            }
+
+            if ($row['card_type'] == 'CASH') {
+                $title3 = '<span class="subtitle">￥</span>' . (double) $row['reduce_cost'] / 100;
+
+                if (empty($row['least_cost'])) {
+                    $title5 = '消费任意金额立减' . (double) $row['deduct'];
+                    $row['color'] = 'orange ';
+                    $tagtitle = '代金券';
+                }
+                else {
+                    $title5 = '消费满' . (double) $row['least_cost'] / 100 . '立减' . (double) $row['reduce_cost'] / 100;
+                    $row['color'] = 'blue';
+                    $tagtitle = '满减券';
+                }
+            }
+
+            if ($row['card_type'] == 'DISCOUNT') {
+                $discount = (double) (100 - intval($row['discount'])) / 10;
+                $row['color'] = 'red ';
+                $title3 = $discount . '<span class="subtitle"> 折</span> ';
+                $tagtitle = '打折券';
+                $title5 = '消费任意金额' . '打' . $discount . '折';
+            }
+
+            if ($row['tagtitle'] == '') {
+                $row['tagtitle'] = $tagtitle;
+            }
+
+            if ($row['datetype'] == 'DATE_TYPE_FIX_TIME_RANGE') {
+                $title4 = date('Y.m.d', $row['begin_timestamp']) . '-' . date('Y.m.d', $row['end_timestamp']);
+            }
+            else {
+                if ($row['datetype'] == 'DATE_TYPE_FIX_TERM') {
+                    if (empty($row['fixed_begin_term'])) {
+                        $begin = '当日生效';
+                    }
+                    else {
+                        $begin = '内' . $row['fixed_begin_term'] . '生效,';
+                    }
+
+                    $title4 = '即领取日' . $begin . $row['fixed_term'] . '天有效';
+                }
+            }
+
+            $row['title2'] = $title2;
+            $row['title3'] = $title3;
+            $row['title4'] = $title4;
+            $row['title5'] = $title5;
+        }
+
+        unset($row);
+        $wxcardlist = array();
+
+        foreach ($wxcard as $row) {
+            if (!empty($row['pass'])) {
+                $wxcardlist[$row['card_id']] = $row;
+            }
+        }
+
+        return $wxcardlist;
+    }
 }
 
-?>

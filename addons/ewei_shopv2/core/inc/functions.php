@@ -2068,6 +2068,9 @@ if (!function_exists("redis")) {
             } else {
                 $connect = $redis_temp->connect($config['server'], $config['port'], $config['timeout']);
             }
+            if (!empty($config['dbn'])) {
+                $connect = $redis_temp->select($connect['dbn']);
+            }
             if (!$connect) {
                 return error(-1, "redis 连接失败, 请检查 data/config.php 中参数设置");
             }

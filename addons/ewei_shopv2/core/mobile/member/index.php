@@ -65,7 +65,9 @@ class Index_EweiShopV2Page extends MobileLoginPage
 			$sql .= ' left join ' . tablename('ewei_shop_coupon') . ' c on d.couponid = c.id';
 			$sql .= ' where d.openid=:openid and d.uniacid=:uniacid and  d.used=0 ';
 			$sql .= ' and (   (c.timelimit = 0 and ( c.timedays=0 or c.timedays*86400 + d.gettime >=unix_timestamp() ) )  or  (c.timelimit =1 and c.timestart<=' . $time . ' && c.timeend>=' . $time . ')) order by d.gettime desc';
+
 			$statics['coupon'] = pdo_fetchcolumn($sql, array(':openid' => $_W['openid'], ':uniacid' => $_W['uniacid']));
+
 			$pcset = $_W['shopset']['coupon'];
 
 			if (empty($pcset['closemember'])) {
@@ -78,8 +80,8 @@ class Index_EweiShopV2Page extends MobileLoginPage
 
 			if ($hascoupon) {
 				$couponnum = com('coupon')->getCanGetCouponNum($_W['merchid']);
-				$cardnum = pdo_fetchcolumn('SELECT COUNT(*) FROM ' . tablename('ewei_shop_wxcard') . ' where  uniacid=:uniacid and gettype =1', array(':uniacid' => $_W['uniacid']));
-				$cardnum += $cardnum;
+				$cardnum = pdo_fetchcolumn('SELECT COUNT(*) FROM ' . tablename('ewei_shop_wxcard') . ' where  uniacid=:uniacid and gettype =1 and (islimitlevel = 0 or islimitlevel = :islimitlevel )', array(':uniacid' => $_W['uniacid'], ':islimitlevel' => $level));
+				$couponnum += $cardnum;
 			}
 		}
 

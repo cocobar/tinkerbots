@@ -863,6 +863,13 @@ class Wxcard_EweiShopV2ComModel extends ComModel
      */
 	public function wxCardGetUserCardList($openid, $card_id = '')
 	{
+	    //todo 缓存
+		$cacheKey = "user_wxcard:{$openid}:{$card_id}";
+		$cacheData = m('cache')->get($cacheKey);
+		if (!empty($cacheData)) {
+			return $cacheData;
+		}
+
 		$jsonData = '{"openid":"' . $openid . '"';
 
 		if (!empty($card_id)) {
@@ -881,6 +888,7 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 
 		$url = 'https://api.weixin.qq.com/card/user/getcardlist?access_token=' . $token;
 		$jsoninfo = $this->wxHttpsRequest($url, $jsonData);
+		m('cache')->set($cacheKey, $jsoninfo);
 		return $jsoninfo;
 	}
 
@@ -1117,7 +1125,9 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 	public function checkwxcardlimit($list, $goodlist)
 	{
 		global $_W;
-
+		if (empty($goodlist)) {
+			return $list;
+		}
 		foreach ($list as $key => $row) {
 			$pass = 0;
 			$least_cost = 0;
@@ -1185,7 +1195,6 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 				unset($list[$key]);
 			}
 		}
-
 		return array_values($list);
 	}
 

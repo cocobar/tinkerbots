@@ -171,6 +171,10 @@ class WeEngine {
 				$this->receive(array(), array(), array());
 				exit();
 			}
+			/*************************/
+			require_once IA_ROOT . "/services/utils/HandleUserEvent.php";	
+			HandleUserEvent::getInstance($message)->dispatch();
+			/************************/
 			$sessionid = md5($message['from'] . $message['to'] . $_W['uniacid']);
 			session_id($sessionid);
 			WeSession::start($_W['uniacid'], $_W['openid']);
