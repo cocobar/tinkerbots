@@ -66,7 +66,9 @@ class Index_EweiShopV2Page extends MobileLoginPage
 			$sql .= ' where d.openid=:openid and d.uniacid=:uniacid and  d.used=0 ';
 			$sql .= ' and (   (c.timelimit = 0 and ( c.timedays=0 or c.timedays*86400 + d.gettime >=unix_timestamp() ) )  or  (c.timelimit =1 and c.timestart<=' . $time . ' && c.timeend>=' . $time . ')) order by d.gettime desc';
 
-			$statics['coupon'] = pdo_fetchcolumn($sql, array(':openid' => $_W['openid'], ':uniacid' => $_W['uniacid']));
+			//$statics['coupon'] = pdo_fetchcolumn($sql, array(':openid' => $_W['openid'], ':uniacid' => $_W['uniacid']));
+            $userWxCards = com_run('wxcard::getAvailableWxcards', 0, 0, $_GPC['merchs']);
+            $statics['coupon'] = count($userWxCards);
 
 			$pcset = $_W['shopset']['coupon'];
 

@@ -429,7 +429,6 @@ class Page extends WeModuleSite
 		if (DEVELOPMENT || !is_file($compile) || filemtime($compile) < filemtime($source)) {
 			shop_template_compile($source, $compile, true);
 		}
-
 		return $compile;
 	}
 

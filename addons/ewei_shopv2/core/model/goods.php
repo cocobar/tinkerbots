@@ -225,9 +225,17 @@ class Goods_EweiShopV2Model
 			$total = $pagesize;
 		}
 
+		//todo 加缓存
+		$cacheKey = "goods_list_" . substr(md5($sql), 8);
+        $cacheData = m('cache')->get($cacheKey);
+        if (!empty($cacheData)) {
+            $cacheData = json_decode($cacheData, true);
+            return array('list' => $cacheData, 'total' => $total);
+        }
+
+        $list = pdo_fetchall($sql, $params);
 		$level = $this->getLevel($_W['openid']);
 		$set = $this->getSet();
-		$list = pdo_fetchall($sql, $params);
 		$levelid = intval($member['level']);
 		$groupid = intval($member['groupid']);
 
@@ -334,6 +342,8 @@ class Goods_EweiShopV2Model
 				$goods['minprice'] = $goods['presellprice'];
 			}
 		});
+
+        m('cache')->set($cacheKey, json_encode($list, true));
 		return array('list' => $list, 'total' => $total);
 	}
 

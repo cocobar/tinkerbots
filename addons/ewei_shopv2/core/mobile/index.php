@@ -80,7 +80,6 @@ class Index_EweiShopV2Page extends MobilePage
 				$cpinfos = com('coupon')->getInfo();
 			}
 		}
-
 		include $this->template();
 	}
 
