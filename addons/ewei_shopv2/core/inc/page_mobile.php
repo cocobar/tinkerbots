@@ -504,7 +504,10 @@ class MobilePage extends Page
 		}
 
 		if (!empty($diypagedata)) {
+
 			$diylayer = $diypagedata['layer'];
+            $customerService = m('common')->getCustomContact();
+            $diylayer['customer_service'] = $customerService;
 
 			if (empty($diylayer['params']['imgurl'])) {
 				return false;
@@ -521,7 +524,7 @@ class MobilePage extends Page
 			if (!empty($order)) {
 				$diylayer['params']['linkurl'] .= '&orderid=' . $order['id'];
 			}
-
+            file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . "\n" . var_export($diylayer,true) . "\n", FILE_APPEND );
 			include $this->template('diypage/layer');
 		}
 	}

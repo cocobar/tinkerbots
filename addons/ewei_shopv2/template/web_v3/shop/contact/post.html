@@ -1,0 +1,117 @@
+{template '_header'}
+
+<div class="page-header">
+    当前位置：<span class="text-primary">{if !empty($contact['id'])}编辑{else}添加{/if}客服{if !empty($contact['id'])}({$contact['title']}){/if}</span>
+</div>
+
+<div class="page-content">
+    <div class="page-sub-toolbar">
+        <span class=''>
+            {ifp 'shop.contact.add'}
+                <a class="btn btn-primary btn-sm" href="{php echo webUrl('shop/contact/add')}">添加新客服</a>
+            {/if}
+        </span>
+    </div>
+    <form {ife 'shop.contact' $contact}action="" method="post"{/if} class="form-horizontal form-validate" enctype="multipart/form-data" onsubmit='return formcheck()'>
+    <input type="hidden" name="id" value="{$contact['id']}" />
+    <div class="form-group">
+        <label class="col-lg control-label">排序</label>
+        <div class="col-sm-9 col-xs-12">
+            {ife 'shop.contact' $contact}
+            <input type="text" name="displayorder" class="form-control" value="{$contact['displayorder']}" />
+            {else}
+            <div class='form-control-static'>{$contact['displayorder']}</div>
+            {/if}
+            <span class='help-block'>排序值大的优先显示</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg control-label must">客服名称</label>
+        <div class="col-sm-9 col-xs-12">
+            {ife 'shop.contact' $contact}
+            <input type="text" id='title' name="title" class="form-control" value="{$contact['title']}" data-rule-required='true' />
+            {else}
+            <div class='form-control-static'>{$contact['title']}</div>
+            {/if}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg control-label must">微信二维码</label>
+        <div class="col-sm-9 col-xs-12">
+            {ife 'shop.contact' $contact}
+            {php echo tpl_form_field_image2('thumb', $contact['thumb'])}
+            {else}
+            {if !empty($contact['thumb'])}
+            <a href='{php echo tomedia($contact['thumb'])}' target='_blank'>
+            <img src="{php echo tomedia($contact['thumb'])}" style='width:100px;border:1px solid #ccc;padding:1px' />
+            {/if}
+            {/if}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg control-label">客服链接</label>
+        <div class="col-sm-9 col-xs-12">
+            {ife 'shop.contact' $contact}
+            <div class="input-group form-group" style="margin: 0;">
+                <input type="text" name="link" class="form-control" value="{$contact['link']}" id="contactlink" />
+                <span class="input-group-btn">
+                            <span data-input="#contactlink" data-toggle="selectUrl" class="btn btn-default">选择链接</span>
+                        </span>
+            </div>
+            <span class="help-block">如果输入链接，则不显示内容，直接跳转</span>
+            {else}
+            <div class='form-control-static'>{$contact['link']}</div>
+            {/if}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg control-label">备注</label>
+        <div class="col-sm-9 col-xs-12">
+             <textarea id='detail' name="detail" rows="5" class="form-control" >{$contact['detail']}</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-lg control-label">
+            在线时间
+        </label>
+        <div class="col-sm-3 col-xs-6">
+            <div class="input-group">
+                <span class="input-group-addon">上班</span>
+                <input type="text" name="starttime" class="form-control" value="{if $contact['starttime']}{$contact['starttime']}{else}10:00{/if}" />
+                <span class="input-group-addon">下班</span>
+                <input type="text" name="endtime" class="form-control" value="{if $contact['endtime']}{$contact['endtime']}{else}22:00{/if}" />
+            </div>
+            <span class='help-block'>不同在线时间，切换不同客服</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-lg control-label">是否显示</label>
+        <div class="col-sm-9 col-xs-12">
+            {ife 'shop.contact' $contact}
+            <label class='radio-inline'>
+                <input type='radio' name='status' value=1' {if $contact['status']==1}checked{/if} /> 是
+            </label>
+            <label class='radio-inline'>
+                <input type='radio' name='status' value=0' {if $contact['status']==0}checked{/if} /> 否
+            </label>
+            {else}
+            <div class='form-control-static'>{if empty($contact['status'])}否{else}是{/if}</div>
+            {/if}
+        </div>
+    </div>
+    <div class="form-group"></div>
+    <div class="form-group">
+        <label class="col-lg control-label"></label>
+        <div class="col-sm-9 col-xs-12">
+            {ife 'shop.contact' $contact}
+            <input type="submit"  value="提交" class="btn btn-primary"  />
+            {/if}
+            <input type="button" name="back" onclick='history.back()' {ifp 'shop.contact.add|shop.contact.edit'}style='margin-left:10px;'{/if} value="返回列表" class="btn btn-default" />
+        </div>
+    </div>
+    </form>
+</div>
+
+{template '_footer'}

@@ -704,6 +704,7 @@ class System_EweiShopV2Model
 					array(
 						'title' => '商城',
 						'items' => array(
+                            array('title' => '在线客服', 'route' => 'contact', 'desc' => '在线客服'),
 							array('title' => '公告管理', 'route' => 'notice', 'desc' => '店铺公告管理'),
 							array('title' => '评价管理', 'route' => 'comment', 'desc' => '店铺商品评价管理'),
 							array('title' => '退货地址', 'route' => 'refundaddress', 'desc' => '店铺退货地址管理')

@@ -27,6 +27,28 @@ class Common_EweiShopV2Model
 		return $set;
 	}
 
+    /**
+     * 获取客服
+     */
+	public function getCustomContact($uniacid = 0) {
+        global $_W;
+        if (empty($uniacid)) {
+            $uniacid = $_W['uniacid'];
+        }
+        $cacheKey = "customer_service";
+        $cacheData = m('cache')->get($cacheKey);
+        if (!empty($cacheData)) {
+        	return json_decode($cacheData, true);
+		}
+        $nowTime = date('H:i');
+        $custom = pdo_fetch('select * from ' . tablename('ewei_shop_contact') . ' where uniacid=:uniacid and status=1 and starttime<=:nowTime and endtime>=:nowTime order by displayorder DESC limit 1', array(':uniacid' => $uniacid, ':nowTime' => $nowTime));
+        if (empty($custom)) {
+        	return false;
+		}
+        m('cache')->set($cacheKey, json_encode($custom, true));
+        return $custom;
+	}
+
 	/**
      * 获取配置
      */

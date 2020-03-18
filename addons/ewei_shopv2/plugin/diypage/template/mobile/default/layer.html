@@ -1,2 +1,43 @@
-<a class="diy-layer external" style="width: {$diylayer['style']['width']}px; position: fixed; display: block; overflow: hidden; z-index: 999; {if $diylayer['params']['iconposition']=='left top'}top: {$diylayer['style']['top']}px; left: {$diylayer['style']['left']}px; text-align: left;{elseif $diylayer['params']['iconposition']=='right top'}top: {$diylayer['style']['top']}px; right: {$diylayer['style']['left']}px; text-align: left;{elseif $diylayer['params']['iconposition']=='left bottom'}bottom: {$diylayer['style']['top']}px; left: {$diylayer['style']['left']}px; text-align: left;{elseif $diylayer['params']['iconposition']=='right bottom'}bottom: {$diylayer['style']['top']}px; right: {$diylayer['style']['left']}px; text-align: left;{/if}" href="{$diylayer['params']['linkurl']}"><img src="{php echo tomedia($diylayer['params']['imgurl'])}" style="height: auto; width: 100%; display: block;" /></a>
+<div class="diy-layer external" id="contact_us_btn"  data-contacturl="{diylayer['customer_service']['link']}" data-qrcode="{diylayer['customer_service']['thumb']}"  style="width: {$diylayer['style']['width']}px; position: fixed; display: block; overflow: hidden; z-index: 999; {if $diylayer['params']['iconposition']=='left top'}top: {$diylayer['style']['top']}px; left: {$diylayer['style']['left']}px; text-align: left;{elseif $diylayer['params']['iconposition']=='right top'}top: {$diylayer['style']['top']}px; right: {$diylayer['style']['left']}px; text-align: left;{elseif $diylayer['params']['iconposition']=='left bottom'}bottom: {$diylayer['style']['top']}px; left: {$diylayer['style']['left']}px; text-align: left;{elseif $diylayer['params']['iconposition']=='right bottom'}bottom: {$diylayer['style']['top']}px; right: {$diylayer['style']['left']}px; text-align: left;{/if}" ><img src="{php echo tomedia($diylayer['params']['imgurl'])}" style="height: auto; width: 100%; display: block;" /></div>
+
+<div class="contact_hidden" style="display: none;">
+    <div class="verify-pop">
+        <div class="close"><i class="icon icon-roundclose"></i></div>
+        <div class="qrcode" style="height: 250px;">
+            <img class="qrimg" src="" />
+        </div>
+        <div class="tip">
+            <p class="text-white">加微信 {$diylayer['customer_service']['title']} 咨询</p>
+            <p class="text-warning">{$diylayer['customer_service']['detail']} </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        var _contactbtn = $("#contact_us_btn");
+        var _contacturl = _contactbtn.data("contacturl");
+        var _qrcode = _contactbtn.data("qrcode");
+        _contactbtn.click(function(){
+            if(_qrcode){
+                $('.verify-pop').find('.qrimg').attr('src', _qrcode).show();
+                contact_container = new FoxUIModal({
+                    content: $(".contact_hidden").html(),
+                    extraClass: "popup-modal",
+                    maskClick:function(){
+                        contact_container.close();
+                    }
+                });
+                contact_container.show();
+                $('.verify-pop').find('.close').unbind('click').click(function () {
+                    contact_container.close();
+                });
+            }
+            else if(_contacturl){
+                location.href = _contacturl;
+            }
+            return;
+        });
+    });
+</script>
 <!--NDAwMDA5NzgyNw==-->
