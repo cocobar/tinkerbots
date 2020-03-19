@@ -1027,7 +1027,7 @@
         {/if}
         <a  class="nav-item btn offic-qrcode" style="background: #fe9402;padding:0 1.9rem;">卖</a>
     {else}
-        <a style="display: none" class="nav-item favorite-item {if $isFavorite}active{/if}" data-isfavorite="{php echo intval($isFavorite)}">
+        <a  class="nav-item favorite-item {if $isFavorite}active{/if}" data-isfavorite="{php echo intval($isFavorite)}">
             <span class="icon {if $isFavorite}icon-likefill{else}icon-like{/if}"></span>
             <span class="label" >关注</span>
         </a>
@@ -1043,10 +1043,6 @@
     </a>
 
 
-    <a  class="nav-item " href="{php echo mobileUrl('goods')}">
-        <span class="icon icon-message"></span>
-        <span class="label" >联系</span>
-    </a>
 
         <a class="nav-item cart-item" href="{php echo mobileUrl('member/cart')}" data-nocache="true" he="" id="menucart">
             <span class='badge {if $cartCount<=0}out{else}in{/if}'>{$cartCount}</span>
@@ -1524,6 +1520,7 @@
             }
 
         },600)
+
     });
 </script>
 {template '_footer'}

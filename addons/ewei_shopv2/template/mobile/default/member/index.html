@@ -349,7 +349,7 @@
 				<div class="fui-cell-text"><p>我的购物车</p></div>
 				<div class="fui-cell-remark">{if $statics['cart']>0}<span class='badge'>{$statics['cart']}</span>{/if}</div>
 			</a>
-			<a style="display: none" class="fui-cell" href="{php echo mobileUrl('member/favorite');}">
+			<a class="fui-cell" href="{php echo mobileUrl('member/favorite');}">
 				<div class="fui-cell-icon"><i class="icon icon-like"></i></div>
 				<div class="fui-cell-text"><p>我的关注</p></div>
 				<div class="fui-cell-remark">{if $statics['favorite']>0}<span class='badge'>{$statics['favorite']}</span>{/if}</div>
