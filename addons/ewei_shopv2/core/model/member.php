@@ -634,7 +634,7 @@ class Member_EweiShopV2Model
 
 		if ($canupgrade) {
 			pdo_update('ewei_shop_member', array('level' => $level['id']), array('id' => $member['id']));
-			com_run('wxcard::updateMemberCardByOpenid', $openid);
+			com_run('wxcard::updateMemberCardByOpenid', $openid, 'bonus', '积分达到升级条件');
 			m('notice')->sendMemberUpgradeMessage($openid, $oldlevel, $level);
 		}
 	}
@@ -681,7 +681,7 @@ class Member_EweiShopV2Model
 
 		if ($canupgrade) {
 			pdo_update('ewei_shop_member', array('level' => $level['id']), array('id' => $member['id']));
-			com_run('wxcard::updateMemberCardByOpenid', $openid);
+			com_run('wxcard::updateMemberCardByOpenid', $openid, 'bonus', "积分达到升级条件");
 			m('notice')->sendMemberUpgradeMessage($openid, $oldlevel, $level);
 		}
 	}

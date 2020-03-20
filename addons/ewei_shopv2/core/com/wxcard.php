@@ -1393,13 +1393,12 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		return $jsoninfo;
 	}
 
-	public function updateMemberCardByOpenid($openid, $type = 1, $desc = "")
+	public function updateMemberCardByOpenid($openid, $type = 'bonus', $desc = "")
 	{
 		global $_W;
 		$card = m('common')->getSysset('membercard');
 		$sql = 'select *  from ' . tablename('ewei_shop_member') . ' where  openid=:openid  and uniacid=:uniacid  limit 1';
 		$member = pdo_fetch($sql, array(':openid' => $openid, ':uniacid' => $_W['uniacid']));
-
 		if (empty($member)) {
 			return false;
 		}
@@ -1450,6 +1449,7 @@ class Wxcard_EweiShopV2ComModel extends ComModel
      */
 	public function wxMembercardUpdateuser($params)
 	{
+        file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . "\n" . var_export($params,true) . "\n", FILE_APPEND );
 		$code = $params['code'];
 		$card_id = $params['card_id'];
 		$bonus = $params['bonus'];

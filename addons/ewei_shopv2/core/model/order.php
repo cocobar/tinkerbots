@@ -525,7 +525,7 @@ class Order_EweiShopV2Model
 	public function setStocksAndCredits($orderid = '', $type = 0, $flag = false)
 	{
 		global $_W;
-		$order = pdo_fetch('select id,ordersn,price,openid,dispatchtype,addressid,carrier,status,isparent,paytype,isnewstore,storeid,istrade,status from ' . tablename('ewei_shop_order') . ' where id=:id limit 1', array(':id' => $orderid));
+		$order = pdo_fetch('select id,ordersn,price,openid,dispatchtype,addressid,carrier,status,isparent,paytype,isnewstore,storeid,istrade,status,goodsprice,discountprice from ' . tablename('ewei_shop_order') . ' where id=:id limit 1', array(':id' => $orderid));
 
 		if (!empty($order['istrade'])) {
 			return NULL;
@@ -675,8 +675,9 @@ class Order_EweiShopV2Model
 			$isgoodsdata = m('common')->getPluginset('sale');
 			$isgoodspoint = iunserializer($isgoodsdata['credit1']);
 			if (!empty($isgoodspoint['isgoodspoint']) && $isgoodspoint['isgoodspoint'] == 1) {
+				$credits = intval($order['goodsprice'] - $order['discountprice']);
+			    /*
 				$gcredit = trim($g['credit']);
-
 				if ($g['seckill'] != 1) {
 					if (!empty($gcredit)) {
 						if (strexists($gcredit, '%')) {
@@ -687,6 +688,7 @@ class Order_EweiShopV2Model
 						}
 					}
 				}
+			    */
 			}
 
 			if ($type == 0) {

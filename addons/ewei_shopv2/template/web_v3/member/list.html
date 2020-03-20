@@ -186,12 +186,12 @@
                                 {$row['mobile']}
                             </td>
                             <td>
-                                {if empty($row['membercardid'])}
-                                <label class='label label-default'>未领取</label>
-                                {elseif empty($row['membercardactive'])}
+                                {if !empty($row['membercardcode']) && !empty($row['mobile'])}
+                                <label class='label label-success'>已激活</label>
+                                {elseif !empty($row['membercardcode']) && empty($row['mobile'])}
                                 <label class='label label-default'>未激活</label>
                                 {else}
-                                <label class='label label-success'>已激活</label>
+                                <label class='label label-default'>未领取</label>
                                 {/if}
                             </td>
                             <td>

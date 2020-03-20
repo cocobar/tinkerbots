@@ -113,6 +113,9 @@
 	require(['biz/member/activation'], function (modal) {
 		modal.init({needrealname:{$needrealname},needmobile:{$needmobile},needsmscode:{$needsmscode},needsbirthday:{$needsbirthday},needsidnumber:{$needsidnumber},card_id:'{$card_id}',encrypt_code:'{$encrypt_code}'});
 	});
+	$(function(){
+	    $('#contact_us_btn').hide()
+	})
 </script>
 
 {template '_footer'}

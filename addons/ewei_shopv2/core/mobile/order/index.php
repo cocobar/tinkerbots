@@ -825,6 +825,7 @@ paytype,expresssn,refundstate,dispatchtype,verifyinfo,merchid,isparent,iscycelbu
 			exit();
 		}
 
+
 		$order = pdo_fetch('select * from ' . tablename('ewei_shop_order') . ' where id=:id and uniacid=:uniacid and openid=:openid limit 1', array(':id' => $orderid, ':uniacid' => $uniacid, ':openid' => $openid));
 
 		if (empty($order)) {
@@ -865,7 +866,6 @@ paytype,expresssn,refundstate,dispatchtype,verifyinfo,merchid,isparent,iscycelbu
 		if (0 < $sendtype) {
 			$condition = ' and og.sendtype = ' . $sendtype;
 		}
-
 		$goods = pdo_fetchall('select og.goodsid,og.price,g.title,g.thumb,og.total,g.credit,og.optionid,og.optionname as optiontitle,g.isverify,og.expresssn,og.express,
             og.sendtype,og.expresscom,og.sendtime,g.storeids' . $diyformfields . '
             from ' . tablename('ewei_shop_order_goods') . ' og ' . ' left join ' . tablename('ewei_shop_goods') . ' g on g.id=og.goodsid ' . ' where og.orderid=:orderid and og.single_refundtime=0 ' . $condition . ' and og.uniacid=:uniacid ', array(':uniacid' => $uniacid, ':orderid' => $orderid));
@@ -875,7 +875,10 @@ paytype,expresssn,refundstate,dispatchtype,verifyinfo,merchid,isparent,iscycelbu
 			$order['expresssn'] = $goods[0]['expresssn'];
 			$order['expresscom'] = $goods[0]['expresscom'];
 		}
-
+		$callback = "http://{$_SERVER['HTTP_HOST']}/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile";
+		$jump = "https://m.kuaidi100.com/app/query/?com={$order['express']}&nu={$order['expresssn']}&coname=tinkerbots&callbackurl=" . urlencode($callback);
+		header("location:{$jump}");
+		exit;
 		$expresslist = m('util')->getExpressList($order['express'], $order['expresssn']);
 		include $this->template();
 	}
