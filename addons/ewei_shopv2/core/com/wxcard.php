@@ -80,7 +80,7 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		$card_type = $params['card_type'];
 		$logo_url = $params['wxlogourl'];
 		$brand_name = $params['brand_name'];
-		$code_type = 'CODE_TYPE_NONE';
+		$code_type = 'CODE_TYPE_QRCODE';
 		$title = $params['title'];
 		$color = $params['color'];
 
@@ -419,7 +419,6 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		$jsonData .= '}';
 		$jsonData .= '}';
 		$tmpData = json_decode($jsonData, true);
-		file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . "\n" . var_export($tmpData,true) . "\n", FILE_APPEND );
 		$account = m('common')->getAccount();
 
 		if (method_exists($account, 'fetch_token')) {
@@ -458,7 +457,6 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		$center_sub_title = $params['center_sub_title'];
 		$center_url = $params['center_url'];
         $center_app_name = $params['center_app_name'];
-        file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . "\n" . var_export($params,true) . "\n", FILE_APPEND );
 		$setcustom = $params['setcustom'];
 
 		if (!empty($setcustom)) {
@@ -535,16 +533,16 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 			$jsonData .= '"logo_url":"' . $logo_url . '",';
 		}
 
+        if (!empty($service_phone)) {
+            $jsonData .= '"service_phone":"' . $service_phone . '",';
+        }
+
 		if (!empty($color)) {
 			$jsonData .= '"color":"' . $color . '",';
 		}
 
 		$jsonData .= '"notice":"' . $notice . '"';
-
-		if (!empty($service_phone)) {
-			$jsonData .= ',"service_phone":"' . $service_phone . '"';
-		}
-
+        $jsonData .= ',"code_type":"CODE_TYPE_QRCODE"';
 		$jsonData .= ',"description":"' . $description . '"';
 
 		if ($type == 'DATE_TYPE_FIX_TIME_RANGE') {
@@ -559,11 +557,11 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		$jsonData .= ',"get_limit":' . $get_limit;
 		$jsonData .= ',"can_share":' . $can_share;
 		$jsonData .= ',"can_give_friend":' . $can_give_friend;
-		$jsonData .= ',"center_title":"' . $center_title . '"';
-		$jsonData .= ',"center_sub_title":"' . $center_sub_title . '"';
+		//$jsonData .= ',"center_title":"' . $center_title . '"';
+		//$jsonData .= ',"center_sub_title":"' . $center_sub_title . '"';
 		//$jsonData .= ',"center_url":"' . $center_url . '"';
-        $jsonData .= ',"center_app_brand_user_name":"' . $center_app_name . '"';
-        $jsonData .= ',"center_app_brand_pass":"' . $center_url . '"';
+        //$jsonData .= ',"center_app_brand_user_name":"' . $center_app_name . '"';
+        //$jsonData .= ',"center_app_brand_pass":"' . $center_url . '"';
         $jsonData .= ',"use_all_locations": true ';
 
 		if (!empty($setcustom)) {
@@ -651,11 +649,31 @@ class Wxcard_EweiShopV2ComModel extends ComModel
 		else {
 			$token = $account->getAccessToken();
 		}
-        $tmpData = json_decode($jsonData, true);
-		file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . "\n" . var_export($tmpData,true) . "\n", FILE_APPEND );
+		$tmpArr = json_decode($jsonData, true);
 		$url = 'https://api.weixin.qq.com/card/update?access_token=' . $token;
 		$result = $this->wxHttpsRequest($url, $jsonData);
 		return $result;
+	}
+
+
+    /**
+     * 微信卡券：设置快速买单
+     */
+    public function setCardQuickPay($cardId, $isOpen = true) {
+    	if (empty($cardId)) {
+    		return false;
+		}
+		$data = [
+			'card_id' => $cardId,
+            'is_open' => $isOpen,
+		];
+    	$jsonData = json_encode($data, true);
+        $account = m('common')->getAccount();
+        $token = $account->getAccessToken();
+        $url = 'https://api.weixin.qq.com/card/paycell/set?access_token=' . $token;
+        $result = $this->wxHttpsRequest($url, $jsonData);
+        return $result;
+
 	}
 
 	/**
@@ -1449,7 +1467,6 @@ class Wxcard_EweiShopV2ComModel extends ComModel
      */
 	public function wxMembercardUpdateuser($params)
 	{
-        file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . "\n" . var_export($params,true) . "\n", FILE_APPEND );
 		$code = $params['code'];
 		$card_id = $params['card_id'];
 		$bonus = $params['bonus'];

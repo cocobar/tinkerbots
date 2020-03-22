@@ -59,11 +59,11 @@
                 <li  {if $_GPC['tab']=='option'}class="active"{/if} ><a href="#tab_option">库存/规格</a></li>
                 <li {if $_GPC['tab']=='param'}class="active"{/if} ><a href="#tab_param">参数</a></li>
                 <li {if $_GPC['tab']=='des'}class="active"{/if} ><a href="#tab_des">详情</a></li>
-                <li {if $_GPC['tab']=='buy'}class="active"{/if} ><a href="#tab_buy">购买权限</a></li>
+                <li {if $_GPC['tab']=='buy'}class="active"{/if} {if !$_W['isfounder'] } style="display:none" {/if} ><a href="#tab_buy">购买权限</a></li>
                 <li {if $_GPC['tab']=='sale'}class="active"{/if} ><a href="#tab_sale">营销</a></li>
                 <li {if $_GPC['tab']=='discount'}class="active"{/if} ><a href="#tab_discount">会员折扣</a></li>
                 <li {if $_GPC['tab']=='share'}class="active"{/if} ><a href="#tab_share">分享关注</a></li>
-                <li {if $_GPC['tab']=='notice'}class="active"{/if} ><a href="#tab_notice">卖家通知</a></li>
+                <li {if $_GPC['tab']=='notice'}class="active"{/if}  {if !$_W['isfounder'] } style="display:none" {/if}><a href="#tab_notice">卖家通知</a></li>
 
                 {if !empty($com_set['level'])}
                 <li {if $_GPC['tab']=='sell'}class="active"{/if}><a href="#tab_sell" id="a_sell">{if p('ccard') && $item['type'] == 20}返佣{else}分销{/if}</a></li>
@@ -75,14 +75,14 @@
 				{/if}
 
                 {if p('diyform')}
-                <li {if $_GPC['tab']=='diyform'}class="active"{/if}><a href="#tab_diyform">自定义表单</a></li>
+                <li {if $_GPC['tab']=='diyform'}class="active"{/if} {if !$_W['isfounder'] } style="display:none" {/if}><a href="#tab_diyform">自定义表单</a></li>
                 {/if}
 
-                {if $merchid == 0}
+                {if $merchid == 0 && $_W['isfounder'] }
                 <li {if $_GPC['tab']=='detaildiy'}class="active"{/if}><a href="#tab_detaildiy">店铺信息</a></li>
                 {/if}
 
-                {if p('diypage')}
+                {if p('diypage')  && $_W['isfounder']}
                 <li {if $_GPC['tab']=='diypage'}class="active"{/if}><a href="#tab_diypage">自定义模板</a></li>
                 {/if}
                 {if p('ccard')}

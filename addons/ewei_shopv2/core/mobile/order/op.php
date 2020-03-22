@@ -86,7 +86,6 @@ class Op_EweiShopV2Page extends MobileLoginPage
      */
 	public function finish()
 	{
-        file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . "\n" . var_export($_REQUEST,true) . "\n", FILE_APPEND );
 		global $_W;
 		global $_GPC;
 		$orderid = intval($_GPC['id']);
@@ -108,7 +107,6 @@ class Op_EweiShopV2Page extends MobileLoginPage
 		}
 
 		pdo_update('ewei_shop_order', array('status' => 3, 'finishtime' => time(), 'refundstate' => 0), array('id' => $order['id'], 'uniacid' => $_W['uniacid']));
-        file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . "\n" . var_export($_REQUEST,true) . "\n", FILE_APPEND );
 		m('order')->setStocksAndCredits($orderid, 3, true);
 		m('order')->fullback($orderid);
 		$memberSetting = m('common')->getSysset('member');

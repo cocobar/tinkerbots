@@ -16,7 +16,7 @@
             {if com('coupon')}
                 <label class="radio-inline"><input type="radio" name='goodstype' value="1" {if $item['goodstype']==1}checked{/if} {if !empty($item)} disabled{/if} />优惠券</label>
             {/if}
-        {if empty($_W['merchid'])}
+        {if empty($_W['merchid']) && false}
             <label class="radio-inline"><input type="radio" name='goodstype' value="2" {if $item['goodstype']==2}checked{/if} {if !empty($item)} disabled{/if} />余额</label>
             <label class="radio-inline"><input type="radio" name='goodstype' value="3" {if $item['goodstype']==3}checked{/if} {if !empty($item)} disabled{/if} />红包</label>
         {/if}

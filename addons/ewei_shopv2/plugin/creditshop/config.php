@@ -21,7 +21,7 @@ return array(
 				'route' => 'log',
 				'items' => array(
 					array('title' => '兑换记录', 'route' => 'exchange', 'extend' => 'creditshop.log.detail'),
-					array('title' => '抽奖记录', 'route' => 'draw')
+//					array('title' => '抽奖记录', 'route' => 'draw')
 				)
 			),
 			array(

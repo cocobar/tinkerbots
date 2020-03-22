@@ -729,7 +729,7 @@ class System_EweiShopV2Model
 					array('title' => '已售罄', 'route' => 'out', 'desc' => '已售罄/无库存商品管理', 'perm' => 'goods.main'),
 					array('title' => '仓库中', 'route' => 'stock', 'desc' => '仓库中商品管理', 'perm' => 'goods.main'),
 					array('title' => '回收站', 'route' => 'cycle', 'desc' => '回收站/已删除商品管理', 'perm' => 'goods.main'),
-					array('title' => '待审核', 'route' => 'verify', 'desc' => '多商户待审核商品管理', 'perm' => 'goods.main'),
+//					array('title' => '待审核', 'route' => 'verify', 'desc' => '多商户待审核商品管理', 'perm' => 'goods.main'),
 					array('title' => '商品分类', 'route' => 'category'),
 					array('title' => '商品组', 'route' => 'group'),
 					array('title' => '标签管理', 'route' => 'label', 'extend' => 'goods.label.style'),
@@ -753,7 +753,7 @@ class System_EweiShopV2Model
 				'items'    => array(
 					array('title' => '会员列表', 'route' => 'list', 'route_in' => true),
 					array('title' => '会员等级', 'route' => 'level'),
-					array('title' => '标签组', 'route' => 'group'),
+//					array('title' => '标签组', 'route' => 'group'),
 					array('title' => '排行榜设置', 'route' => 'rank', 'desc' => '会员积分/消费排行榜设置'),
 					array(
 						'title'   => '微信会员卡',
@@ -834,7 +834,7 @@ class System_EweiShopV2Model
 							array('title' => '满额包邮', 'route' => 'enoughfree', 'desc' => '满额包邮设置', 'keywords' => '营销'),
 							array('title' => '抵扣设置', 'route' => 'deduct', 'desc' => '抵扣设置', 'keywords' => '营销'),
 							array('title' => '充值优惠', 'route' => 'recharge', 'desc' => '充值优惠设置', 'keywords' => '营销'),
-							array('title' => '积分优惠', 'route' => 'credit1', 'desc' => '积分优惠设置', 'keywords' => '营销'),
+//							array('title' => '积分优惠', 'route' => 'credit1', 'desc' => '积分优惠设置', 'keywords' => '营销'),
 							array('title' => '套餐管理', 'route' => 'package', 'keywords' => '营销'),
 							array('title' => '赠品管理', 'route' => 'gift', 'keywords' => '营销'),
 							array('title' => '全返管理', 'route' => 'fullback', 'keywords' => '营销'),
@@ -856,7 +856,7 @@ class System_EweiShopV2Model
 							),
 							array('title' => '发放记录', 'route' => 'log', 'desc' => '优惠券发放记录'),
 							array('title' => '分类管理', 'route' => 'category', 'desc' => '优惠券分类管理'),
-							array('title' => '其他设置', 'route' => 'set', 'desc' => '优惠券设置')
+//							array('title' => '其他设置', 'route' => 'set', 'desc' => '优惠券设置')
 						)
 					),
 					array(
@@ -1359,6 +1359,7 @@ class System_EweiShopV2Model
 				if ($_W['isfounder'] && $_W['role'] != 'vice_founder') {
 				}
 
+                $return_arr['menu_items'][] = array('text' => '清除缓存', 'href' => '#', 'id' => 'update_cache', 'icow' => 'icow-shanchu1');
 				$return_arr['menu_items'][] = array('text' => '修改密码', 'href' => './index.php?c=user&a=profile&', 'blank' => true, 'icow' => 'icow-quanxian1');
 			}
 

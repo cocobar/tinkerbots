@@ -79,8 +79,8 @@
 
 <ul class="nav nav-arrow-next nav-tabs" id="myTab">
     <li {if $_GPC['tab']=='basic' || empty($_GPC['tab'])}class="active"{/if} ><a href="#tab_basic">基本</a></li>
-    <li {if $_GPC['tab']=='abstract'}class="active"{/if} ><a href="#tab_abstract">自定义元素</a></li>
-    <li {if $_GPC['tab']=='limit'}class="active"{/if} ><a href="#tab_limit">使用限制</a></li>
+    <li {if $_GPC['tab']=='abstract'}class="active"{/if} {if !$_W['isfounder']}style="display:none"{/if} ><a href="#tab_abstract">自定义元素</a></li>
+    <li {if $_GPC['tab']=='limit'}class="active"{/if} {if !$_W['isfounder']}style="display:none"{/if} ><a href="#tab_limit">使用限制</a></li>
     <li {if $_GPC['tab']=='center'}class="active"{/if} ><a href="#tab_center">领取设置</a></li>
 </ul>
 

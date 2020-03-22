@@ -1,4 +1,4 @@
-<div class="region-goods-details row">
+<div class="region-goods-details row"  {if !$_W['isfounder'] } style="display:none" {/if}>
     <div class="region-goods-left col-sm-2">
         促销方式
     </div>
@@ -117,7 +117,7 @@
 </div>
 
 
-<div class="region-goods-details row">
+<div class="region-goods-details row"  {if !$_W['isfounder'] } style="display:none" {/if}>
     <div class="region-goods-left col-sm-2">
         满返设置
     </div>
@@ -254,7 +254,7 @@
 {/if}
 
 <!--重复购买-->
-<div class="region-goods-details row">
+<div class="region-goods-details row " {if !$_W['isfounder'] } style="display:none" {/if} >
     <div class="region-goods-left col-sm-2">
         重复购买
     </div>

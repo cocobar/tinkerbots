@@ -446,7 +446,7 @@ class Perm_EweiShopV2ComModel extends ComModel
 			$sale = array('deduct' => '修改抵扣设置-log', 'enough' => '修改满额立减-log', 'enoughfree' => '修改满额包邮-log', 'recharge' => '修改充值优惠设置-log', 'credit1' => '积分优惠优惠设置-log');
 			$array = array_merge($array, $sale);
 		}
-
+file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . "\n" . var_export($array,true) . "\n", FILE_APPEND );
 		return $array;
 	}
 
@@ -1709,7 +1709,6 @@ class Perm_EweiShopV2ComModel extends ComModel
 		if (empty(self::$formatPerms)) {
 			$perms = $this->allPerms();
 			$array = array();
-
 			foreach ($perms as $key => $value) {
 				if (is_array($value)) {
 					foreach ($value as $ke => $val) {

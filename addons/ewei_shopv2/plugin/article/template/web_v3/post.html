@@ -39,8 +39,8 @@
 			<ul class="nav nav-tabs" id="myTab">
 				<li {if empty($_GPC[ 'tab']) || $_GPC[ 'tab']=='basic' }class="active" {/if}><a href="#tab_basic">基本</a></li>
 				<li {if $_GPC[ 'tab']=='content' }class="active" {/if}><a href="#tab_content">内容</a></li>
-				<li {if $_GPC[ 'tab']=='reward' }class="active" {/if}><a href="#tab_reward">奖励</a></li>
-				<li {if $_GPC[ 'tab']=='spread' }class="active" {/if}><a href="#tab_spread">推广</a></li>
+				<li {if $_GPC[ 'tab']=='reward'}class="active" {/if} {if !$_W['isfounder']}style="display:none"{/if}><a href="#tab_reward">奖励</a></li>
+				<li {if $_GPC[ 'tab']=='spread' }class="active" {/if} {if !$_W['isfounder']}style="display:none"{/if}><a href="#tab_spread">推广</a></li>
 				<li {if $_GPC[ 'tab']=='visit' }class="active" {/if}><a href="#tab_visit">访问权限</a></li>
 				{if $_GPC['advance']==1}
 				    <li {if $_GPC[ 'tab']=='advance' }class="active" {/if}><a href="#tab_advance">高级模式</a></li>

@@ -63,29 +63,29 @@
 				{if p('article') && !$platform && $type != 'topmenu' && $type != 'topmenu_data'}
 				<li class=""><a href="#sut_article">{php echo m('plugin')->getName('article')}</a></li>
 				{/if}
-				{if com('coupon') && !$platform && $type != 'topmenu' && $type != 'topmenu_data'}
+				{if com('coupon') && !$platform && $type != 'topmenu' && $type != 'topmenu_data' && $_W['isfounder']}
 				<li class=""><a href="#sut_coupon">{php echo m('plugin')->getComName('coupon')}</a></li>
 				{/if}
-				{if p('diypage') && !$platform && $type != 'topmenu_data'}
+				{if p('diypage') && !$platform && $type != 'topmenu_data' && $_W['isfounder']}
 				<li class=""><a href="#sut_diypage">{php echo m('plugin')->getName('diypage')}</a></li>
 				{/if}
-				{if p('groups') && !$platform && $type != 'topmenu' && $type != 'topmenu_data'}
+				{if p('groups') && !$platform && $type != 'topmenu' && $type != 'topmenu_data' && $_W['isfounder']}
 				<li class=""><a href="#sut_groups">{php echo m('plugin')->getName('groups')}</a></li>
 				{/if}
-				{if p('sns') && !$platform && $type != 'topmenu' && $type != 'topmenu_data'}
+				{if p('sns') && !$platform && $type != 'topmenu' && $type != 'topmenu_data' && $_W['isfounder']}
 				<li class=""><a href="#sut_sns">{php echo m('plugin')->getName('sns')}</a></li>
 				{/if}
 				{if p('creditshop') && !$platform && $type != 'topmenu' && $type != 'topmenu_data'}
 				<li class=""><a href="#sut_creditshop">{php echo m('plugin')->getName('creditshop')}</a></li>
 				{/if}
-				{if p('quick') && $type != 'topmenu' && $type != 'topmenu_data' && $type != 'levellink'}
+				{if p('quick') && $type != 'topmenu' && $type != 'topmenu_data' && $type != 'levellink' && $_W['isfounder']}
 				<li class=""><a href="#sut_quick">{php echo m('plugin')->getName('quick')}</a></li>
 				{/if}
 				{if $type == 'topmenu_data'}
 				<li class="active"><a href="#sut_goods_data" class="sut_goods_data">商品</a></li>
 				<li class=""><a href="#sut_shop_data" class="sut_shop_data">门店</a></li>
 				{/if}
-				{if  p('friendcoupon') && $type != 'topmenu' && $type != 'topmenu_data' && $type != 'levellink' && $platform!='wxapp_tabbar'}
+				{if  p('friendcoupon') && $type != 'topmenu' && $type != 'topmenu_data' && $type != 'levellink' && $platform!='wxapp_tabbar' && $_W['isfounder']}
 				<li class=""><a href="#sut_friendcoupon">{php echo m('plugin')->getName('friendcoupon')}</a></li>
 				{/if}
 

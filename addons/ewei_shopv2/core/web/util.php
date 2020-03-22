@@ -63,8 +63,8 @@ class Util_EweiShopV2Page extends WebPage
 		$mobile = trim($_GPC['mobile']);
 		$expresssn = str_replace(' ', '', $expresssn);
 		$list = m('util')->getExpressList($express, $expresssn, $mobile);
+		$url = "https://m.kuaidi100.com/app/query/?com={$express}&nu={$expresssn}&coname=tinkerbots&callbackurl=http://shop.tinkerbots.vip/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.list";
 		include $this->template();
 	}
 }
 
-?>

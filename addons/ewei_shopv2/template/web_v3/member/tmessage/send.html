@@ -1,6 +1,6 @@
 {template '_header'}
  <div class="page-heading">
-    <h2>消息群发 <small>{if !empty($send)}群发模板 {$send['title']}{/if}</small></h2>
+    <h2>aa消息群发 <small>{if !empty($send)}群发模板 {$send['title']}{/if}</small></h2>
 </div>
  
             <form {ifp 'member.tmessage.send.sendmessage'}action="" method="post"{/if} class="form-horizontal form" enctype="multipart/form-data">
@@ -27,13 +27,13 @@
                 </div>
             </div>
                         <div class="form-group">
-                            <label class="col-xs-12 col-sm-3 col-md-2 control-label" >发送类型</label>
+                            <label class="col-xs-12 col-sm-3 col-md-2 control-label" >发送类型1</label>
                             <div class="col-sm-9 col-xs-12">
                                 <label class="radio-inline"><input type="radio" name="send1" value="1"  checked /> 按openid发送</label>
                                 <label class="radio-inline"><input type="radio" name="send1" value="2"    /> 按用户等级发送</label>
-                                <label class="radio-inline"><input type="radio" name="send1" value="3"  /> 按用户分组等级发送</label>
+                                <label class="radio-inline" {if !$_W['isfounder'] } style="display:none" {/if}><input type="radio" name="send1" value="3"  /> 按用户分组等级发送</label>
                                 {if p('commission')}
-                                <label class="radio-inline"><input type="radio" name="send1" value="5"  /> 按分销商等级发送</label>
+                                <label class="radio-inline" {if !$_W['isfounder'] } style="display:none" {/if}><input type="radio" name="send1" value="5"  /> 按分销商等级发送</label>
                                 {/if}
                                 <label class="radio-inline"><input type="radio" name="send1" value="4" />全部发送</label>
                             </div>

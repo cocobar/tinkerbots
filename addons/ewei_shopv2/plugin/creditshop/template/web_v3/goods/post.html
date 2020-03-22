@@ -32,10 +32,10 @@
                 <li {if $_GPC['tab']=='basic' || empty($_GPC['tab'])}class="active"{/if} ><a href="#tab_basic">商品设置</a></li>
                 <li {if $_GPC['tab']=='option'}class="active"{/if}><a href="#tab_option">库存/规格</a></li>
                 <li {if $_GPC['tab']=='notice'}class="active"{/if}><a href="#tab_notice">详情</a></li>
-                <li {if $_GPC['tab']=='act'}class="active"{/if}><a href="#tab_act">抽奖设置</a></li>
+                <li {if $_GPC['tab']=='act'}class="active"{/if} {if !$_W['isfounder']}style="display:none"{/if}><a href="#tab_act">抽奖设置</a></li>
                 <li {if $_GPC['tab']=='verify'}class="active"{/if}><a href="#tab_verify" >线下核销</a></li>
-                <li {if $_GPC['tab']=='vip'}class="active"{/if}><a href="#tab_vip">会员特权</a></li>
-                <li {if $_GPC['tab']=='sub'}class="active"{/if}><a href="#tab_sub">商家管理</a></li>
+                <li {if $_GPC['tab']=='vip'}class="active"{/if}  {if !$_W['isfounder']}style="display:none"{/if}><a href="#tab_vip">会员特权</a></li>
+                <li {if $_GPC['tab']=='sub'}class="active"{/if}  {if !$_W['isfounder']}style="display:none"{/if}><a href="#tab_sub">商家管理</a></li>
                 <li {if $_GPC['tab']=='share'}class="active"{/if}><a href="#tab_share">关注及分享</a></li>
             </ul>
             <div class="tab-content">

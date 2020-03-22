@@ -71,7 +71,8 @@ class Index_EweiShopV2Page extends ComWebPage
 			$data['displayorder'] = intval($_GPC['displayorder']);
 			$data['color'] = $_GPC['color'];
 			$data['notice'] = '使用时向服务员出示此券';
-			$data['service_phone'] = '';
+			$data['service_phone'] = $_GPC['service_phone'];
+            $data['verify_way'] = $_GPC['verify_way'];
 			$data['description'] = $_GPC['description'];
 			$data['use_limit'] = intval($_GPC['use_limit']) <= 1 ? 1 : intval($_GPC['use_limit']);
 			$data['get_limit'] = intval($_GPC['get_limit']) <= 1 ? 1 : intval($_GPC['get_limit']);
@@ -211,7 +212,12 @@ class Index_EweiShopV2Page extends ComWebPage
 
 				$data['card_type'] = $item['card_type'];
 				$data['card_id'] = $item['card_id'];
+                $isOpen = $data['verify_way'] == 1 ? true : false;
+                com('wxcard')->setCardQuickPay($data['card_id'], false);
 				$result = com('wxcard')->updateCard($data);
+				if ($isOpen) {
+                    com('wxcard')->setCardQuickPay($data['card_id'], true);
+				}
 
 				if (is_wxerror($result)) {
 					show_json(0, '卡券更新失败,错误信息:' . $result['errmsg']);
@@ -329,6 +335,9 @@ class Index_EweiShopV2Page extends ComWebPage
 				if (is_wxerror($result)) {
 					show_json(0, '卡券创建失败,错误信息:' . $result['errmsg']);
 				}
+
+				$isOpen = $data['verify_way'] == 1 ? 1 : 0;
+                com('wxcard')->setCardQuickPay($result['card_id'], $isOpen);
 
 				$data['card_id'] = $result['card_id'];
 				pdo_insert('ewei_shop_wxcard', $data);

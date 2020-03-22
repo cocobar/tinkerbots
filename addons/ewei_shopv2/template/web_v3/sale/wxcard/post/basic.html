@@ -136,11 +136,23 @@
 					<input type="text" id="service_phone" name="service_phone" class='input form-control' value="{$item['service_phone']}" >
 				</div>
 			</div>
+
+			<div class="form-group">
+				<label  class="col-lg control-label">核销方式</label>
+				<div class="col-sm-8 col-xs-12">
+					<label class="radio-inline">
+						<input type="radio" name="verify_way" value="1" {if $item['verify_way'] != 2}checked="true"{/if} /> 自助核销
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="verify_way" value="2" {if $item['verify_way'] == 2}checked="true"{/if} /> 商家核销
+					</label>
+				</div>
+			</div>
 			<!--新增 end-->
 
 			<!--是否分享-->
 			<div class="form-group caption">
-				<label for="" class="col-lg control-label">卡券分享</label>
+				<label for="can_share" class="col-lg control-label">卡券分享</label>
 				<div class="col-sm-8 col-xs-12">
 					<label class="checkbox-inline">
 						<input type="checkbox"  name="can_share" id="can_share"  {if !empty($item['can_share'])}checked{/if}  {ife 'sale.wxcard' $item}{else}disabled{/if}   / >用户可以分享领券链接

@@ -88,7 +88,6 @@ class Role_EweiShopV2Page extends WebPage
 		}
 
 		$user_perms = explode(',', $data_perms);
-
 		if ($_W['ispost']) {
 			$data = array('uniacid' => $_W['uniacid'], 'rolename' => trim($_GPC['rolename']), 'status' => intval($_GPC['status']), 'perms2' => trim($_GPC['permsarray']));
 

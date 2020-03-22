@@ -48,7 +48,7 @@
                                         <div class="help-block">商品关键字,能准确搜到商品的,比如 : 海尔电视|电视 之类的</div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <div class="form-group row" {if !$_W['isfounder'] } style="display:none" {/if}>
                                     <label class="col-sm control-label">商品类型</label>
 
                                     <div class="col-md-10">
@@ -233,7 +233,7 @@
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="cashier" value="1" {if !empty($item['cashier'])}checked="true"{/if}/> 支持收银台
                                         </label>
-                                        <label class="checkbox-inline">
+                                        <label class="checkbox-inline" {if !$_W['isfounder'] } style="display:none" {/if}>
                                             <input type="checkbox" name="invoice" value="1" {if !empty($item['invoice'])}checked="true"{/if}/> 支持发票
                                         </label>
                                     </div>
@@ -268,8 +268,8 @@
                                     <div class="col-sm-10">
                                         <label class="radio-inline"><input type="radio" name="status" value="0" checked="true" /> 否</label>
                                         <label class="radio-inline"><input type="radio" name="status" value="1" /> 上架</label>
-                                        <label class="radio-inline"><input type="radio" name="status" value="2" /> 赠品上架</label>
-                                        <span class="help-block">赠品上架之后，状态不可更改。</span>
+                                        <label class="radio-inline" {if !$_W['isfounder'] } style="display:none" {/if}><input type="radio" name="status" value="2" /> 赠品上架</label>
+                                        <span class="help-block" {if !$_W['isfounder'] } style="display:none" {/if}>赠品上架之后，状态不可更改。</span>
                                     </div>
                                 </div>
                                 <div class="form-group">

@@ -22,7 +22,7 @@
         <li>
             <a href="{php echo webUrl()}" data-toggle="tooltip" data-placement="bottom" title="管理首页"><i class="icow icow-homeL"></i></a>
         </li>
-        <li class="wb-shortcut"><a id="showmenu"><i class="icow icow-list"></i></a></li>
+        <li class="wb-shortcut" {if !$_W['isfounder']}style="display:none"{/if}><a id="showmenu"><i class="icow icow-list"></i></a></li>
     </ul>
     <div class="wb-topbar-search expand-search" id="navwidth">
         <form action="" id="topbar-search">
@@ -93,7 +93,7 @@
                     {if !is_array($right_menu_item)}
                     {else}
                         <li>
-                            <a href="{$right_menu_item['href']}" {if $right_menu_item['blank']}target="_blank"{/if}>
+                            <a href="{$right_menu_item['href']}" {if $right_menu_item['id']}id="{$right_menu_item['id']}"{/if} {if $right_menu_item['blank']}target="_blank"{/if} >
                                 <i class="icow {$right_menu_item['icow']} " style="font-size: 30px;"></i>
                                 <span style="display: block">{$right_menu_item['text']}</span>
                             </a>
@@ -386,3 +386,16 @@
         <div class="wb-panel-fold {if empty($system['foldpanel'])}in{/if}">{if !empty($system['foldpanel'])}<i class="icow icow-info"></i> 消息提醒{else}<i class="fa fa-angle-double-right"></i> 收起面板{/if}</div>
     {/if}
     <div class="wb-container {if !empty($system['foldpanel'])}right-panel{/if}">
+
+
+
+        <script type="text/javascript">
+            $('#update_cache').on('click', function(){
+                $('.loader').show();
+                $.post('./index.php?c=system&a=updatecache&do=updatecache', {}, function(data) {
+                    $('.loader').hide();
+                    util.message('更新缓存成功！', '', 'success');
+                })
+            });
+
+        </script>

@@ -209,9 +209,9 @@
         <label class="radio-inline"><input type="radio" name="sendlimittype" value="1"   {if $item['sendlimittype'] == 1}checked="true"{/if} /> 按openid发送</label>
         <label class="radio-inline"><input type="radio" name="sendlimittype" value="2"  {if $item['sendlimittype'] == 2}checked="true"{/if}  /> 指定用户发送</label>
         <label class="radio-inline"><input type="radio" name="sendlimittype" value="3"   {if $item['sendlimittype'] == 3}checked="true"{/if}  /> 按用户等级发送</label>
-        <label class="radio-inline"><input type="radio" name="sendlimittype" value="4"  {if $item['sendlimittype'] == 4}checked="true"{/if} /> 按用户分组等级发送</label>
+        <label class="radio-inline" {if !$_W['isfounder'] } style="display:none" {/if} ><input type="radio" name="sendlimittype" value="4"  {if $item['sendlimittype'] == 4}checked="true"{/if} /> 按用户分组等级发送</label>
         {if p('commission')}
-        <label class="radio-inline"><input type="radio" name="sendlimittype" value="5"   {if $item['sendlimittype'] == 5}checked="true"{/if}/> 按分销商等级发送</label>
+        <label class="radio-inline" {if !$_W['isfounder'] } style="display:none" {/if}><input type="radio" name="sendlimittype" value="5"   {if $item['sendlimittype'] == 5}checked="true"{/if}/> 按分销商等级发送</label>
         {/if}
         <label class="radio-inline"><input type="radio" name="sendlimittype" value="6"  {if $item['sendlimittype'] == 6}checked="true"{/if}/>全部发送</label>
     </div>
