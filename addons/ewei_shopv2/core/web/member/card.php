@@ -16,7 +16,6 @@ class Card_EweiShopV2Page extends WebPage
 		global $_W;
 		global $_GPC;
 		$card = m('common')->getSysset('membercard');
-
 		if (!empty($card)) {
 			$result = com('wxcard')->wxCardGetQrcodeUrl($card['card_id']);
 
@@ -66,8 +65,8 @@ class Card_EweiShopV2Page extends WebPage
 		global $_W;
 		global $_GPC;
 		$card = m('common')->getSysset('membercard');
-
-		if ($_W['ispost']) {
+        print_r($card);die;
+        if ($_W['ispost']) {
 			if (128 < strlen($_GPC['custom_cell1_url'])) {
 				show_json(0, '入口跳转链接不能超过128个字符');
 			}
@@ -260,7 +259,6 @@ class Card_EweiShopV2Page extends WebPage
 	{
 		global $_W;
 		$card = m('common')->getSysset('membercard');
-
 		if (empty($card)) {
 			m('common')->updateSysset(array('membercard' => $carddata));
 		}

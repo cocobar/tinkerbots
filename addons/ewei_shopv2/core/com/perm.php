@@ -242,6 +242,15 @@ class Perm_EweiShopV2ComModel extends ComModel
 				'xxx'    => array('displayorder' => 'edit', 'enabled' => 'edit', 'setdefault' => 'edit')
 			),
 			'cityexpress'   => array('text' => '同城配送', 'main' => '查看', 'edit' => '修改-log'),
+			'contact'        => array(
+				'text'   => '在线客服',
+				'main'   => '查看列表',
+				'view'   => '查看内容',
+				'add'    => '添加-log',
+				'edit'   => '修改-log',
+				'delete' => '删除-log',
+				'xxx'    => array('displayorder' => 'edit', 'status' => 'edit')
+			),
 			'notice'        => array(
 				'text'   => '公告',
 				'main'   => '查看列表',

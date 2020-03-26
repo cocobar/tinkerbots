@@ -14,7 +14,7 @@ class Common_EweiShopV2Model
 
 		$set = m('cache')->getArray('sysset', $uniacid);
 
-		if (empty($set)) {
+		if (empty($set) || true) {
 			$set = pdo_fetch('select * from ' . tablename('ewei_shop_sysset') . ' where uniacid=:uniacid limit 1', array(':uniacid' => $uniacid));
 
 			if (empty($set)) {

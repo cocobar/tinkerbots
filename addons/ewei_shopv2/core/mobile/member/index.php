@@ -151,6 +151,7 @@ class Index_EweiShopV2Page extends MobileLoginPage
 			}
 		}
 
+        file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . "\n" . var_export($card,true) . "\n", FILE_APPEND );
 		$hasqa = false;
 		$plugin_qa = p('qa');
 
