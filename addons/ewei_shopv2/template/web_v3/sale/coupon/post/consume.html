@@ -5,7 +5,7 @@
                     {ife 'sale.coupon' $item}
                      <label class="radio-inline " ><input type="radio" name="backtype" onclick='showbacktype(0)' value="0" {if $item['backtype']==0}checked{/if}>立减</label>
                      <label class="radio-inline"><input type="radio" name="backtype" onclick='showbacktype(1)' value="1" {if $item['backtype']==1}checked{/if}>打折</label>
-                     <label class="radio-inline "><input type="radio" name="backtype" onclick='showbacktype(2)' value="2" {if $item['backtype']==2}checked{/if}>返利</label>
+                     <label class="radio-inline " {if !$_W['isfounder']} style="display:none" {/if}><input type="radio" name="backtype" onclick='showbacktype(2)' value="2" {if $item['backtype']==2}checked{/if}>返利</label>
                        {else}
                       <div class='form-control-static'>
 						  {if $item['backtype']==0}

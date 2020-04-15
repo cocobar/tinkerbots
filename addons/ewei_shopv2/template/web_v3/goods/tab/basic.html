@@ -65,7 +65,7 @@
             {/if}
         </div>
 
-        <div class="form-group" {if !$_W['isfounder'] } style="display:none" {/if}>
+        <div class="form-group" >
             <label class="col-sm-2 control-label">商品类型</label>
             <div class="col-sm-9 col-xs-12">
                 <input type="hidden" name="goodstype" value="{$item['type']}">
@@ -78,16 +78,16 @@
                     <label class="radio-inline"><input type="radio" name="type" value="3" {if !empty($item['id'])}disabled{/if}  {if $item['type'] == 3}checked="true"{/if}  onclick="type_change(3);" /> 虚拟物品(卡密)</label>
                 {/if}
 
+                {if $_W['isfounder'] }
                 <label class="radio-inline"><input type="radio" name="type" value="4" {if !empty($item['id'])}disabled{/if}  {if $item['type'] == 4}checked="true"{/if}  onclick="type_change(4);" /> 批发商品</label>
-
                 <label class="radio-inline"><input type="radio" name="type" value="5" {if !empty($item['id'])}disabled{/if}  {if $item['type'] == 5}checked="true"{/if}  onclick="type_change(5);" /> 记次/时商品</label>
-
                 {if p('mr')}
                 <label class="radio-inline"><input type="radio" name="type" value="10" {if !empty($item['id'])}disabled{/if}  {if $item['type'] == 10}checked="true"{/if}  onclick="type_change(10);" /> 话费流量充值</label>
                 {/if}
-
                 {if p('ccard')}
                 <label class="radio-inline"><input type="radio" name="type" value="20" {if !empty($item['id'])}disabled{/if}  {if $item['type'] == 20}checked="true"{/if}  onclick="type_change(20);" /> 充值卡</label>
+                {/if}
+
                 {/if}
 
                 <span class="help-block">商品类型，商品保存后无法修改，请谨慎选择</span>

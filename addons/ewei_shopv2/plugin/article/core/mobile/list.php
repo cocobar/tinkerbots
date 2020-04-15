@@ -3,7 +3,6 @@
 if (!defined('IN_IA')) {
 	exit('Access Denied');
 }
-
 class List_EweiShopV2Page extends PluginMobilePage
 {
 	public function main()
@@ -17,7 +16,10 @@ class List_EweiShopV2Page extends PluginMobilePage
 		if ($article_sys['article_temp'] == 2) {
 			$categorys = pdo_fetchall('SELECT * FROM ' . tablename('ewei_shop_article_category') . ' WHERE uniacid=:uniacid and isshow=1 order by displayorder desc ', array(':uniacid' => $_W['uniacid']));
 		}
-
+		if (!empty($_GPC['video'])) {
+            include $this->template("article/video_list");
+            exit();
+		}
 		include $this->template();
 	}
 
@@ -30,6 +32,11 @@ class List_EweiShopV2Page extends PluginMobilePage
 		$article_sys['article_image'] = tomedia($article_sys['article_image']);
 		$pindex = max(1, $page);
 		$psize = empty($article_sys['article_shownum']) ? '20' : $article_sys['article_shownum'];
+
+		// todo 视频教程分类ID写死
+		if (stripos($_SERVER['HTTP_REFERER'], "video") !== false) {
+			$_GPC['cateid'] = 13;
+		}
 
 		if ($article_sys['article_temp'] == 0) {
 			$articles = pdo_fetchall('SELECT a.id, a.article_title, a.resp_img, a.article_rule_credit, a.article_rule_money, a.resp_desc, a.article_category FROM ' . tablename('ewei_shop_article') . ' a left join ' . tablename('ewei_shop_article_category') . ' c on c.id=a.article_category  WHERE a.article_state=1 and article_visit=0 and c.isshow=1 and a.uniacid= :uniacid order by a.displayorder desc, a.article_date desc LIMIT ' . ($pindex - 1) * $psize . ',' . $psize, array(':uniacid' => $_W['uniacid']));

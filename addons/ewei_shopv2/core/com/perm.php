@@ -242,6 +242,15 @@ class Perm_EweiShopV2ComModel extends ComModel
 				'xxx'    => array('displayorder' => 'edit', 'enabled' => 'edit', 'setdefault' => 'edit')
 			),
 			'cityexpress'   => array('text' => '同城配送', 'main' => '查看', 'edit' => '修改-log'),
+            'teachvideo'        => array(
+                'text'   => '教程视频',
+                'main'   => '查看列表',
+                'view'   => '查看内容',
+                'add'    => '添加-log',
+                'edit'   => '修改-log',
+                'delete' => '删除-log',
+                'xxx'    => array('displayorder' => 'edit', 'status' => 'edit')
+            ),
 			'contact'        => array(
 				'text'   => '在线客服',
 				'main'   => '查看列表',
@@ -451,11 +460,11 @@ class Perm_EweiShopV2ComModel extends ComModel
 			'peerpay'    => array('text' => '找人代付', 'main' => '查看', 'edit' => '编辑'),
 			'bindmobile' => array('text' => '绑定送积分', 'main' => '查看', 'edit' => '编辑')
 		);
-		if ($this->isopen('sale', true) && $this->is_perm_plugin('sale', true)) {
+		//if ($this->isopen('sale', true) && $this->is_perm_plugin('sale', true)) {
+		if (true) {
 			$sale = array('deduct' => '修改抵扣设置-log', 'enough' => '修改满额立减-log', 'enoughfree' => '修改满额包邮-log', 'recharge' => '修改充值优惠设置-log', 'credit1' => '积分优惠优惠设置-log');
 			$array = array_merge($array, $sale);
 		}
-file_put_contents('/tmp/test.log',date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . "\n" . var_export($array,true) . "\n", FILE_APPEND );
 		return $array;
 	}
 
