@@ -45,7 +45,8 @@ class Goods_EweiShopV2Model
 			$displayorder = 'merchdisplayorder';
 		}
 
-		$order = !empty($args['order']) ? $args['order'] : ' ' . $displayorder . ' desc,createtime desc';
+		//$order = !empty($args['order']) ? $args['order'] : ' ' . $displayorder . ' desc,createtime desc';
+		$order = !empty($args['order']) ? $args['order'] : ' ' . $displayorder . ' asc,createtime desc';
 		$orderby = empty($args['order']) ? '' : (!empty($args['by']) ? $args['by'] : '');
 		$merch_plugin = p('merch');
 		$merch_data = m('common')->getPluginset('merch');

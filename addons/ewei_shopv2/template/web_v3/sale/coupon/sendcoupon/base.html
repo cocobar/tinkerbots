@@ -35,14 +35,16 @@
     <div class="col-sm-9 col-xs-12">
         <label class="radio-inline"><input type="radio" name="send1" value="1"  checked /> 指定用户发送</label>
         <label class="radio-inline"><input type="radio" name="send1" value="2"    /> 按用户等级发送</label>
+        {if p('commission') && $_W['isfounder']}
         <label class="radio-inline"><input type="radio" name="send1" value="3"  /> 按用户分组等级发送</label>
-        {if p('commission')}
+        {/if}
+        {if p('commission') && $_W['isfounder']}
         <label class="radio-inline"><input type="radio" name="send1" value="5"  /> 按分销商等级发送</label>
         {/if}
-        {if p('globonus')}
+        {if p('globonus') && $_W['isfounder']}
         <label class="radio-inline"><input type="radio" name="send1" value="6"  /> 按股东等级发送</label>
         {/if}
-        {if p('abonus')}
+        {if p('abonus') && $_W['isfounder']}
         <label class="radio-inline"><input type="radio" name="send1" value="7"  /> 按区域代理等级发送</label>
         {/if}
         <label class="radio-inline"><input type="radio" name="send1" value="4" />全部发送</label>
