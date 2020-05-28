@@ -215,8 +215,7 @@ class Sendcoupon_EweiShopV2Page extends ComWebPage
 				show_json(0, '优惠券数量不足,请补充 ' . $need . ' 张优惠券才能发放!');
 			}
 		}
-
-		$data = array('sendtemplateid' => $_GPC['sendtemplateid'], 'frist' => $_GPC['frist'], 'fristcolor' => $_GPC['fristcolor'], 'keyword1' => $_GPC['keyword1'], 'keyword1color' => $_GPC['keyword1color'], 'keyword2' => $_GPC['keyword2'], 'keyword2color' => $_GPC['keyword2color'], 'remark' => $_GPC['remark'], 'remarkcolor' => $_GPC['remarkcolor'], 'templateurl' => $_GPC['templateurl'], 'custitle' => $_GPC['custitle'], 'custhumb' => $_GPC['custhumb'], 'cusdesc' => $_GPC['cusdesc'], 'cusurl' => $_GPC['cusurl']);
+		$data = array('sendtemplateid' => $_GPC['sendtemplateid'], 'frist' => $_GPC['frist'], 'fristcolor' => $_GPC['fristcolor'], 'keyword1' => $_GPC['keyword1'], 'keyword1color' => $_GPC['keyword1color'], 'keyword2' => $_GPC['keyword2'], 'keyword2color' => $_GPC['keyword2color'], 'keyword3' => $_GPC['keyword3'], 'keyword3color' => $_GPC['keyword3color'],  'remark' => $_GPC['remark'], 'remarkcolor' => $_GPC['remarkcolor'], 'templateurl' => $_GPC['templateurl'], 'custitle' => $_GPC['custitle'], 'custhumb' => $_GPC['custhumb'], 'cusdesc' => $_GPC['cusdesc'], 'cusurl' => $_GPC['cusurl']);
 		m('common')->updatePluginset(array('coupon' => $data));
 		$time = time();
 
@@ -243,8 +242,8 @@ class Sendcoupon_EweiShopV2Page extends ComWebPage
 		$openid = $_GPC['openid'];
 		$messagetype = intval($_GPC['messagetype']);
 		$couponid = intval($_GPC['couponid']);
+        $coupon = pdo_fetch('SELECT * FROM ' . tablename('ewei_shop_coupon') . ' WHERE id=:id and uniacid=:uniacid and merchid=0', array(':id' => $couponid, ':uniacid' => $_W['uniacid']));
 		$data = m('common')->getPluginset('coupon');
-
 		if (empty($messagetype)) {
 			exit(json_encode(array('result' => 0)));
 		}
@@ -261,9 +260,9 @@ class Sendcoupon_EweiShopV2Page extends ComWebPage
 				'first'  => array('value' => $data['frist'], 'color' => $data['fristcolor']),
 				'remark' => array('value' => $data['remark'], 'color' => $data['remarkcolor'])
 			);
-			$msg['keyword1'] = array('value' => '会员通知', 'color' => $data['keyword1color']);
-			$msg['keyword2'] = array('value' => $data['keyword1'], 'color' => $data['keyword1color']);
-			$msg['keyword3'] = array('value' => $data['keyword2'], 'color' => $data['keyword2color']);
+			$msg['keyword1'] = array('value' => $data['keyword1'], 'color' => $data['keyword1color']);
+			$msg['keyword2'] = array('value' => $data['keyword2'], 'color' => $data['keyword2color']);
+            $msg['keyword3'] = array('value' => $data['keyword3'], 'color' => $data['keyword3color']);
 
 			if (empty($data['templateurl'])) {
 				$data['templateurl'] = mobileUrl('sale/coupon/my', NULL, true);
@@ -285,7 +284,15 @@ class Sendcoupon_EweiShopV2Page extends ComWebPage
 			if (empty($data['cusurl'])) {
 				$data['cusurl'] = mobileUrl('sale/coupon/my', NULL, true);
 			}
-
+			if (empty($data['custitle'])) {
+				$data['custitle'] = $coupon['couponname'];
+			}
+            if (empty($data['custhumb'])) {
+                $data['custhumb'] = 'images/global/coupon.png';
+            }
+            if (empty($data['cusdesc'])) {
+                $data['cusdesc'] = str_replace(['&nbsp;', ' '], '', strip_tags($coupon['desc']));
+            }
 			$resp = $this->sendNews($openid, $data['custitle'], $data['cusdesc'], $data['cusurl'], $data['custhumb']);
 
 			if (is_error($resp)) {

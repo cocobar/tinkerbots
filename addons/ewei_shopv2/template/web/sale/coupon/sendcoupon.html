@@ -209,7 +209,7 @@
         $.ajax({
             url: "{php echo webUrl('sale/coupon/sendcoupon/sendmessage')}",
             type:'post',
-            data: {'openid':openid, messagetype: messagetype},
+            data: {'openid':openid, couponid:data.couponid, messagetype: messagetype},
             dataType:'json',
             success:function(result2){
 

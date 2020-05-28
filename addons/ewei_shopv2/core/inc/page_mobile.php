@@ -502,7 +502,6 @@ class MobilePage extends Page
 		else {
 			$diypagedata = m('common')->getPluginset('diypage');
 		}
-
 		if (!empty($diypagedata)) {
 
 			$diylayer = $diypagedata['layer'];

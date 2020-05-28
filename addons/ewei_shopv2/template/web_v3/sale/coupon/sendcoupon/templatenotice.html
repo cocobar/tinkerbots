@@ -40,8 +40,19 @@
     </div>
 </div>
 
+
 <div class="form-group">
-    <label class="col-lg control-label">模板信息结尾</label>
+    <label class="col-lg control-label">通知信息3</label>
+    <div class="col-sm-9 col-xs-12">
+        <textarea id="keyword3" name="data[keyword3]" rows="5" class="form-control">{if !empty($data['keyword3'])}{$data['keyword3']}{else}请您点击查看{/if}</textarea>
+    </div>
+    <div class="col-sm-1 col-xs-2">
+        <input type="color" id="keyword3color" name="data[keyword3color]" value="{$data['keyword3color']}" style="width:32px;height:32px;" />
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg control-label">备注</label>
     <div class="col-sm-9 col-xs-12">
         <input type="text" id="remark" class="form-control " name="data[remark]"  value="{$data['remark']}">
     </div>

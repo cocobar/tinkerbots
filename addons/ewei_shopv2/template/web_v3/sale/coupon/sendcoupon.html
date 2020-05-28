@@ -134,6 +134,8 @@
             keyword1color  : $('#keyword1color').val(),
             keyword2  : $('#keyword2').val(),
             keyword2color : $('#keyword2color').val(),
+            keyword3  : $('#keyword3').val(),
+            keyword3color : $('#keyword3color').val(),
             remark  : $('#remark').val(),
             remarkcolor  : $('#remarkcolor').val(),
             templateurl : $('#templateurl').val(),
@@ -209,7 +211,7 @@
         $.ajax({
             url: "{php echo webUrl('sale/coupon/sendcoupon/sendmessage')}",
             type:'post',
-            data: {'openid':openid, messagetype: messagetype},
+            data: {'openid':openid, couponid:$('#couponid').val(), messagetype: messagetype},
             dataType:'json',
             success:function(result2){
 

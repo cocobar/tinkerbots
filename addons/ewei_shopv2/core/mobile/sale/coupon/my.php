@@ -201,8 +201,7 @@ class My_EweiShopV2Page extends MobileLoginPage
                 $userWxCardData[] = $tmpArr;
             }
         }
-        show_json(1, array('list' => $userWxCardData, 'pagesize' => 5, 'total' => count($userWxCardData)));
-        die;
+        //show_json(1, array('list' => $userWxCardData, 'pagesize' => 5, 'total' => count($userWxCardData)));
 		$pindex = max(1, intval($_GPC['page']));
 		$psize = 10;
 		$time = time();
@@ -335,6 +334,7 @@ class My_EweiShopV2Page extends MobileLoginPage
 			$row['title5'] = $title5;
 		}
 		unset($row);
+		$coupons = array_merge($userWxCardData, $coupons);
 		show_json(1, array('list' => $coupons, 'pagesize' => $psize, 'total' => $total));
 	}
 

@@ -34,8 +34,8 @@
 	<script id='tpl_list_coupon_my' type='text/html'>
 		<%each list as coupon%>
 		<%if  coupon.check == 0%>
-			<!--<a href="{php echo mobileUrl('sale/coupon/my/detail')}&id=<%coupon.id%>" class="coupon-item  <%coupon.color%>">-->
-				<a href="{php echo mobileUrl('goods')}" class="coupon-item  <%coupon.color%>">
+			<a href="{php echo mobileUrl('sale/coupon/my/detail')}&id=<%coupon.id%>" class="coupon-item  <%coupon.color%>">
+				<!--<a href="{php echo mobileUrl('goods')}" class="coupon-item  <%coupon.color%>">-->
 		<% else%>
 			<a href="javascript:void(0)" class="coupon-item  <%if  coupon.check == 1%><%coupon.color%> <%else%>gray<%/if%>">
 		<%/if%>

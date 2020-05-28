@@ -1584,6 +1584,7 @@ class Create_EweiShopV2Page extends MobileLoginPage
 			}
 
 			$limitdiscounttype = intval($data['limitdiscounttype']);
+            $discountprice_array = [];
 			$coupongoodprice = 0;
 			$gprice = 0;
 
